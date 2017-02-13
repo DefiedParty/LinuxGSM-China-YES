@@ -9,4 +9,4 @@ local commandaction="Fix"
 
 export LD_LIBRARY_PATH=${filesdir}:${LD_LIBRARY_PATH}
 
-echo "exec ${servercfg} > ${servercfgdir}/${servercfgdefault}"
+echo "exec ${servercfg}" > "${servercfgdir}/${servercfgdefault}"
