@@ -91,7 +91,7 @@ tmpdir="${lgsmdir}/tmp"
 filesdir="${rootdir}/serverfiles"
 
 ## Server Specific Directories
-systemdir="${filesdir}/cstrike"
+systemdir="${filesdir}/${game}"
 executabledir="${filesdir}"
 executable="./hlds_l"
 servercfg="${servicename}.cfg"
