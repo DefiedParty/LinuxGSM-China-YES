@@ -31,7 +31,7 @@ ip="0.0.0.0"
 
 ## Server Start Command | https://github.com/GameServerManagers/LinuxGSM/wiki/Start-Parameters#additional-parameters
 fn_parms(){
-parms="-game ${game} +ip ${ip} -port ${port} +map ${defaultmap} +maxplayers ${maxplayers} +exec ${servercfg}"
+parms="-game ${game} +ip ${ip} -port ${port} +map ${defaultmap} +maxplayers ${maxplayers}"
 }
 
 #### LinuxGSM Settings ####
