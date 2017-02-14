@@ -22,7 +22,7 @@ fn_install_server_files(){
 	elif [ "${gamename}" == "Call of Duty: World at War" ]; then
 		fileurl="http://files.gameservermanagers.com/CallOfDutyWorldAtWar/codwaw-lnxded-1.7-full.tar.bz2"; filedir="${tmpdir}"; filename="codwaw-lnxded-1.7-full.tar.bz2";  executecmd="noexecute" run="norun"; force="noforce"; md5="0489697ff3bf678c109bfb377d1b7895"
 	elif [ "${gamename}" == "Counter-Strike Beta" ]; then
-		fileurl="https://s3.amazonaws.com/linuxgsm/hlds_l3016_beta_cstrike.tar.gz"; filedir="${tmpdir}"; filename="hlds_l3016_beta_cstrike.tar.gz";  executecmd="noexecute" run="norun"; force="noforce"; md5="6295a69581077e73d0971b103da68b31"
+		fileurl="https://s3.amazonaws.com/linuxgsm/hlds_l3016_beta_cstrike_nowon.tar.gz"; filedir="${tmpdir}"; filename="hlds_l3016_beta_cstrike_nowon.tar.gz";  executecmd="noexecute" run="norun"; force="noforce"; md5="09badf17c96b20c2082d4ff8d7341189"
 	elif [ "${gamename}" == "GoldenEye: Source" ]; then
 		fileurl="http://files.gameservermanagers.com/GoldenEyeSource/GoldenEye_Source_v5.0.1_full_server_linux.tar.bz2"; filedir="${tmpdir}"; filename="GoldenEye_Source_v5.0.1_server_full_Linux.tar.bz2";  executecmd="noexecute" run="norun"; force="noforce"; md5="ea227a150300abe346e757380325f84c"
 	elif [ "${gamename}" == "Quake 2" ]; then
