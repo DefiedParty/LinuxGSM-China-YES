@@ -4,7 +4,7 @@
 # Website: https://gameservermanagers.com
 # Description: Stores details on servers Glibc requirements.
 
-local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
+local function_selfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 if [ "${gamename}" == "ARK: Survival Evolved" ]; then
 	glibcrequired="2.15"
@@ -35,6 +35,12 @@ elif [ "${gamename}" == "Call of Duty 4" ]; then
 elif [ "${gamename}" == "Call of Duty: World at War" ]; then
 	glibcrequired="2.3.2"
 	glibcfix="no"
+elif [ "${gamename}" == "Codename CURE" ]; then
+	glibcrequired="2.15"
+	glibcfix="yes"
+elif [ "${gamename}" == "Counter-Strike: Global Offensive" ]; then
+	glibcrequired="2.15"
+	glibcfix="yes"
 elif [ "${gamename}" == "Day of Infamy" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
@@ -59,6 +65,9 @@ elif [ "${gamename}" == "GoldenEye: Source" ]; then
 elif [ "${gamename}" == "Insurgency" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
+elif [ "${shortname}" == "kf2" ]; then
+	glibcrequired="2.17"
+	glibcfix="no"
 elif [ "${gamename}" == "Mumble" ]; then
 	glibcrequired="NOT REQUIRED"
 	glibcfix="no"
@@ -68,6 +77,9 @@ elif [ "${gamename}" == "No More Room in Hell" ]; then
 elif [ "${gamename}" == "Project Cars" ]; then
 	glibcrequired="2.4"
 	glibcfix="no"
+elif [ "${gamename}" == "Pirates, Vikings, and Knights II" ]; then
+	glibcrequired="2.15"
+	glibcfix="yes"
 elif [ "${gamename}" == "Quake 2" ]; then
 	glibcrequired="NOT REQUIRED"
 	glibcfix="no"
@@ -77,9 +89,18 @@ elif [ "${gamename}" == "Quake 3: Arena" ]; then
 elif [ "${gamename}" == "Quake Live" ]; then
 	glibcrequired="2.15"
 	glibcfix="no"
+elif [ "${gamename}" == "San Andreas Multiplayer" ]; then
+	glibcrequired="2.3"
+	glibcfix="no"
+elif [ "${gamename}" == "Squad" ]; then
+	glibcrequired="2.17"
+	glibcfix="no"
 elif [ "${gamename}" == "Sven Co-op" ]; then
 	glibcrequired="2.18"
 	glibcfix="no"
+elif [ "${gamename}" == "Team Fortress 2" ]; then
+	glibcrequired="2.15"
+	glibcfix="yes"
 elif [ "${gamename}" == "TeamSpeak 3" ]; then
 	glibcrequired="NOT REQUIRED"
 	glibcfix="no"
@@ -104,8 +125,11 @@ elif [ "${engine}" == "realvirtuality" ]; then
 elif [ "${engine}" == "seriousengine35" ]; then
 	glibcrequired="2.13"
 	glibcfix="yes"
-elif [ "${engine}" == "source" ]||[ "${engine}" == "goldsource" ]; then
+elif [ "${engine}" == "source" ]; then
 	glibcrequired="2.3.6"
+	glibcfix="no"
+elif [ "${engine}" == "goldsource" ]; then
+	glibcrequired="2.3.4"
 	glibcfix="no"
 elif [ "${engine}" == "spark" ]; then
 	glibcrequired="2.15"

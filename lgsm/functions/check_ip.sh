@@ -6,7 +6,7 @@
 # If multiple interfaces are detected the user will need to manually set using ip="0.0.0.0".
 
 local commandname="CHECK"
-local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
+local function_selfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 if [ "${gamename}" != "TeamSpeak 3" ]&&[ "${gamename}" != "Mumble" ]&&[ "${travistest}" != "1" ]; then
 	if [ ! -f "/bin/ip" ]; then
@@ -25,11 +25,13 @@ if [ "${gamename}" != "TeamSpeak 3" ]&&[ "${gamename}" != "Mumble" ]&&[ "${travi
 			sleep 1
 			echo -en "\n"
 			if [ "${ipsetinconfig}" == "1" ]; then
-				fn_print_information "Specify the IP you want to use within the server config file ${servercfg}.\n"
+				fn_print_information "Specify the IP you want to use within the game server config file ${servercfg}.\n"
 				echo -en "${servercfgfullpath}\n"
 				echo -en "Set ${ipinconfigvar} to one of the following:\n"
 			else
-				fn_print_information "Specify the IP you want to use within the ${selfname} script.\n"
+				fn_print_information_nl "Specify the IP you want to use within a LinuxGSM config file."
+				echo -en "location: ${configdirserver}\n"
+				echo ""
 				echo -en "Set ip=\"0.0.0.0\" to one of the following:\n"
 			fi
 			echo -en "${getip}\n"
@@ -37,7 +39,11 @@ if [ "${gamename}" != "TeamSpeak 3" ]&&[ "${gamename}" != "Mumble" ]&&[ "${travi
 			echo -en "https://gameservermanagers.com/network-interfaces\n"
 			echo -en ""
 			fn_script_log_fatal "Multiple active network interfaces found."
-			fn_script_log_fatal "Manually specify the IP you want to use within the ${selfname} script."
+			if [ "${legacymode}" == "1" ]; then
+				fn_script_log_fatal "Manually specify the IP you want to use within the ${selfname} script."
+			else
+				fn_script_log_fatal "Manually specify the IP you want to use within: ${configdirserver}."
+			fi
 			fn_script_log_fatal "https://gameservermanagers.com/network-interfaces\n"
 			core_exit.sh
 		else

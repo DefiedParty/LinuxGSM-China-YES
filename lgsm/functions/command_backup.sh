@@ -7,7 +7,7 @@
 
 local commandname="BACKUP"
 local commandaction="Backup"
-local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
+local function_selfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 check.sh
 
@@ -18,7 +18,7 @@ fn_backup_trap(){
 	fn_print_canceled_eol_nl
 	fn_script_log_info "Backup ${backupname}.tar.gz: CANCELED"
 	sleep 1
-	rm -f "${backupdir}/${backupname}.tar.gz" | tee -a "${scriptlog}"
+	rm -f "${backupdir}/${backupname}.tar.gz" | tee -a "${lgsmlog}"
 	echo -ne "backup ${backupname}.tar.gz..."
 	fn_print_removed_eol_nl
 	fn_script_log_info "Backup ${backupname}.tar.gz: REMOVED"
@@ -62,7 +62,6 @@ fn_backup_init(){
 		sleep 1
 	fi
 }
-
 
 # Check if server is started and wether to stop it
 fn_backup_stop_server(){
@@ -113,12 +112,13 @@ fn_backup_compression(){
 	sleep 2
 	fn_print_dots "Backup (${rootdirduexbackup}) ${backupname}.tar.gz, in progress..."
 	fn_script_log_info "backup ${rootdirduexbackup} ${backupname}.tar.gz, in progress"
-	tar -czf "${backupdir}/${backupname}.tar.gz" -C "${rootdir}" --exclude "backups" ./*
+	excludedir=$(realpath --relative-to="${rootdir}" "${backupdir}")
+	tar -czf "${backupdir}/${backupname}.tar.gz" -C "${rootdir}" --exclude "${excludedir}" ./*
 	local exitcode=$?
 	if [ ${exitcode} -ne 0 ]; then
 		fn_print_fail_eol
 		fn_script_log_fatal "Backup in progress: FAIL"
-		echo "${tarcmd}" | tee -a "${scriptlog}"
+		echo "${tarcmd}" | tee -a "${lgsmlog}"
 		fn_print_fail_nl "Starting backup"
 		fn_script_log_fatal "Starting backup"
 	else
