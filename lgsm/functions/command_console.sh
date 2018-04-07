@@ -1,7 +1,7 @@
 #!/bin/bash
 # LinuxGSM command_console.sh function
 # Author: Daniel Gibbs
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Gives access to the server tmux console.
 
 local commandname="CONSOLE"
@@ -30,7 +30,7 @@ if [ "${status}" != "0" ]; then
 	fn_print_ok_nl "Accessing console"
 	fn_script_log_pass "Console accessed"
 	sleep 1
-	tmux attach-session -t "=${servicename}"
+	tmux attach-session -t ${servicename}
 	fn_print_ok_nl "Closing console"
 	fn_script_log_pass "Console closed"
 else

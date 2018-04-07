@@ -1,7 +1,7 @@
 #!/bin/bash
 # LinuxGSM install_config.sh function
 # Author: Daniel Gibbs
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Creates default server configs.
 
 local commandname="INSTALL"
@@ -38,12 +38,15 @@ fn_default_config_remote(){
 		echo "copying ${config} config file."
 		fn_script_log_info "copying ${servercfg} config file."
 		if [ "${config}" == "${servercfgdefault}" ]; then
+			mkdir -p "${servercfgdir}"
 			cp -nv "${lgsmdir}/config-default/config-game/${config}" "${servercfgfullpath}"
 		elif [ "${gamename}" == "ARMA 3" ]&&[ "${config}" == "${networkcfgdefault}" ]; then
+			mkdir -p "${servercfgdir}"
 			cp -nv "${lgsmdir}/config-default/config-game/${config}" "${networkcfgfullpath}"
 		elif [ "${gamename}" == "Don't Starve Together" ]&&[ "${config}" == "${clustercfgdefault}" ]; then
 			cp -nv "${lgsmdir}/config-default/config-game/${clustercfgdefault}" "${clustercfgfullpath}"
 		else
+			mkdir -p "${servercfgdir}"
 			cp -nv "${lgsmdir}/config-default/config-game/${config}" "${servercfgdir}/${config}"
 		fi
 	done
@@ -61,7 +64,11 @@ fn_set_config_vars(){
 		echo "changing hostname."
 		fn_script_log_info "changing hostname."
 		sleep 1
-		sed -i "s/SERVERNAME/${servername}/g" "${servercfgfullpath}"
+		if grep -q "SERVERNAME=SERVERNAME" "${lgsmdir}/config-default/config-game/${config}" 2>/dev/null; then
+			sed -i "s/SERVERNAME=SERVERNAME/SERVERNAME=${servername}/g" "${servercfgfullpath}"
+		else
+			sed -i "s/SERVERNAME/${servername}/g" "${servercfgfullpath}"
+		fi
 		echo "changing rcon/admin password."
 		fn_script_log_info "changing rcon/admin password."
 		sed -i "s/ADMINPASSWORD/${rconpass}/g" "${servercfgfullpath}"
@@ -146,6 +153,19 @@ elif [ "${gamename}" == "ARMA 3" ]; then
 elif [ "${gamename}" == "Ballistic Overkill" ]; then
 	gamedirname="BallisticOverkill"
 	array_configs+=( config.txt )
+	fn_fetch_default_config
+	fn_default_config_remote
+	fn_set_config_vars
+elif [ "${gamename}" == "Base Defense" ]; then
+	gamedirname="BaseDefense"
+	array_configs+=( server.cfg )
+	fn_fetch_default_config
+	fn_default_config_remote
+	fn_set_config_vars
+elif [ "${gamename}" == "Battalion 1944" ]; then
+	gamedirname="Battalion1944"
+	fn_check_cfgdir
+	array_configs+=( DefaultGame.ini )
 	fn_fetch_default_config
 	fn_default_config_remote
 	fn_set_config_vars
@@ -276,6 +296,12 @@ elif [ "${gamename}" == "Double Action: Boogaloo" ]; then
 	fn_fetch_default_config
 	fn_default_config_remote
 	fn_set_config_vars
+elif [ "${gamename}" == "ET: Legacy" ]; then
+	gamedirname="ETLegacy"
+	array_configs+=( server.cfg )
+	fn_fetch_default_config
+	fn_default_config_remote
+	fn_set_config_vars
 elif [ "${gamename}" == "Factorio" ]; then
 	gamedirname="Factorio"
 	array_configs+=( server-settings.json )
@@ -333,6 +359,12 @@ elif [ "${gamename}" == "Insurgency" ]; then
 elif [ "${gamename}" == "Just Cause 2" ]; then
 	gamedirname="JustCause2"
 	array_configs+=( config.lua )
+	fn_fetch_default_config
+	fn_default_config_remote
+	fn_set_config_vars
+elif [ "${gamename}" == "Just Cause 3" ]; then
+	gamedirname="JustCause3"
+	array_configs+=( config.json )
 	fn_fetch_default_config
 	fn_default_config_remote
 	fn_set_config_vars
@@ -453,6 +485,12 @@ elif [ "${gamename}" == "Squad" ]; then
 elif [ "${gamename}" == "Starbound" ]; then
 	gamedirname="Starbound"
 	array_configs+=( starbound_server.config )
+	fn_fetch_default_config
+	fn_default_config_remote
+	fn_set_config_vars
+elif [ "${gamename}" == "Stationeers" ]; then
+	gamedirname="Stationeers"
+	array_configs+=( default.ini )
 	fn_fetch_default_config
 	fn_default_config_remote
 	fn_set_config_vars

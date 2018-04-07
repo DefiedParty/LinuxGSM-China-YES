@@ -2,7 +2,7 @@
 # LinuxGSM core_dl.sh function
 # Author: Daniel Gibbs
 # Contributor: UltimateByte
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Deals with all downloads for LinuxGSM.
 
 # remote_fileurl: The URL of the file: http://example.com/dl/File.tar.bz2
@@ -105,7 +105,7 @@ fn_fetch_file(){
 	forcedl="${6:-0}"
 	md5="${7:-0}"
 
-	# download file if missing or download forced
+	# Download file if missing or download forced
 	if [ ! -f "${local_filedir}/${local_filename}" ]||[ "${forcedl}" == "forcedl" ]; then
 		if [ ! -d "${local_filedir}" ]; then
 			mkdir -p "${local_filedir}"
@@ -115,9 +115,9 @@ fn_fetch_file(){
 		# if larger file shows progress bar
 		if [ "${local_filename##*.}" == "bz2" ]||[ "${local_filename##*.}" == "gz" ]||[ "${local_filename##*.}" == "zip" ]||[ "${local_filename##*.}" == "jar" ]; then
 			echo -ne "downloading ${local_filename}..."
-			sleep 1
-			curlcmd=$(${curlpath} --progress-bar --fail -L -o "${local_filedir}/${local_filename}" "${remote_fileurl}")
+			sleep 0.5
 			echo -ne "downloading ${local_filename}..."
+			curlcmd=$(${curlpath} --progress-bar --fail -L -o "${local_filedir}/${local_filename}" "${remote_fileurl}")
 		else
 			echo -ne "    fetching ${local_filename}...\c"
 			curlcmd=$(${curlpath} -s --fail -L -o "${local_filedir}/${local_filename}" "${remote_fileurl}" 2>&1)
@@ -238,15 +238,9 @@ fn_update_function(){
 }
 
 # Defines curl path
-curl_paths_array=($(command -v curl 2>/dev/null) $(which curl >/dev/null 2>&1) /usr/bin/curl /bin/curl /usr/sbin/curl /sbin/curl)
-for curlpath in "${curl_paths_array}"
-do
-	if [ -x "${curlpath}" ]; then
-		break
-	fi
-done
+curlpath=$(command -v curl 2>/dev/null)
 
-if [ "$(basename ${curlpath})" != "curl" ]; then
+if [ "$(basename "${curlpath}")" != "curl" ]; then
 	echo "[ FAIL ] Curl is not installed"
 	exit 1
 fi

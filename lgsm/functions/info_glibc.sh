@@ -1,7 +1,7 @@
 #!/bin/bash
 # LinuxGSM info_glibc.sh function
 # Author: Daniel Gibbs
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Stores details on servers Glibc requirements.
 
 local function_selfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
@@ -12,6 +12,12 @@ if [ "${gamename}" == "ARK: Survival Evolved" ]; then
 elif [ "${gamename}" == "Ballistic Overkill" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
+elif [ "${gamename}" == "Battalion 1944" ]; then
+	glibcrequired="2.17"
+	glibcfix="no"
+elif [ "${gamename}" == "Base Defense" ]; then
+	glibcrequired="2.14"
+	glibcfix="no"
 elif [ "${gamename}" == "Black Mesa: Deathmatch" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
@@ -51,7 +57,7 @@ elif [ "${gamename}" == "Empires Mod" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
 elif [ "${gamename}" == "Factorio" ]; then
-	glibcrequired="2.15"
+	glibcrequired="2.18"
 	glibcfix="yes"
 elif [ "${gamename}" == "Fistful of Frags" ]; then
 	glibcrequired="2.15"
@@ -107,9 +113,12 @@ elif [ "${gamename}" == "TeamSpeak 3" ]; then
 elif [ "${gamename}" == "Teeworlds" ]; then
 	glibcrequired="2.14"
 	glibcfix="no"
-elif [ "${engine}" == "avalanche" ]; then
+elif [ "${gamename}" == "Just Cause 2" ]; then
 	glibcrequired="2.13"
 	glibcfix="yes"
+elif [ "${gamename}" == "Just Cause 3" ]; then
+	glibcrequired="2.17"
+	glibcfix="no"
 elif [ "${engine}" == "dontstarve" ]; then
 	glibcrequired="2.15"
 	glibcfix="no"
@@ -131,7 +140,10 @@ elif [ "${engine}" == "source" ]; then
 elif [ "${engine}" == "goldsource" ]; then
 	glibcrequired="2.3.4"
 	glibcfix="no"
-elif [ "${engine}" == "spark" ]; then
+elif [ "${gamename}" == "Natural Selection 2" ]; then
+	glibcrequired="2.17"
+	glibcfix="no"
+elif [ "${gamename}" == "NS2: Combat" ]; then
 	glibcrequired="2.15"
 	glibcfix="yes"
 elif [ "${engine}" == "starbound" ]; then
@@ -170,9 +182,15 @@ elif [ "${engine}" == "refractor" ]; then
 elif [ "${gamename}" == "Wolfenstein: Enemy Territory" ]; then
 	glibcrequired="2.2.4"
 	glibcfix="no"
+elif [ "${gamename}" == "ET: Legacy" ]; then
+	glibcrequired="2.7"
+	glibcfix="no"
 elif [ "${gamename}" == "Multi Theft Auto" ]; then
 	glibcrequired="2.7"
 	glibcfix="no"
+elif [ "${gamename}" == "Zombie Panic! Source" ]; then
+	glibcrequired="2.15"
+	glibcfix="yes"
 else
 	glibcrequired="UNKNOWN"
 	glibcfix="no"

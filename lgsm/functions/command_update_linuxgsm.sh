@@ -1,7 +1,7 @@
 #!/bin/bash
 # LinuxGSM command_update_linuxgsm.sh function
 # Author: Daniel Gibbs
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Deletes the functions dir to allow re-downloading of functions from GitHub.
 
 local commandname="UPDATE LinuxGSM"
@@ -23,6 +23,8 @@ if [ -z "${legacymode}" ];then
 		fn_script_log_info "checking config _default.cfg: UPDATE"
 		rm -f "${configdirdefault}/config-lgsm/${gameservername}/_default.cfg"
 		fn_fetch_config "lgsm/config-default/config-lgsm/${gameservername}" "_default.cfg" "${configdirdefault}/config-lgsm/${gameservername}" "_default.cfg" "nochmodx" "norun" "noforce" "nomd5"
+		alert="config"
+		alert.sh
 	else
 		fn_print_ok_eol_nl
 		fn_script_log_info "checking config _default.cfg: OK"

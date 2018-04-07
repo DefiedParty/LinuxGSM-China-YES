@@ -2,7 +2,7 @@
 # LinuxGSM command_start.sh function
 # Author: Daniel Gibbs
 # Contributor: UltimateByte
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Starts the server.
 
 local commandname="START"
@@ -38,6 +38,14 @@ fn_start_teamspeak3(){
 	fi
 	# Create lockfile
 	date > "${rootdir}/${lockselfname}"
+	# Accept license
+	if [ ! -f "${executabledir}/.ts3server_license_accepted" ]; then
+		fn_script_log "Accepting ts3server license:  ${executabledir}/LICENSE"
+		fn_print_info_nl "Accepting TeamSpeak license:"
+		echo " * ${executabledir}/LICENSE"
+		sleep 3
+		touch "${executabledir}/.ts3server_license_accepted"
+	fi
 	cd "${executabledir}"
 	if [ "${ts3serverpass}" == "1" ]; then
 		./ts3server_startscript.sh start serveradmin_password="${newpassword}" inifile="${servercfgfullpath}" > /dev/null 2>&1
@@ -110,7 +118,7 @@ fn_start_tmux(){
 		fn_script_log "Tmux version: master (user compiled)"
 		echo "Tmux version: master (user compiled)" >> "${consolelog}"
 		if [ "${consolelogging}" == "on" ]||[ -z "${consolelogging}" ]; then
-			tmux pipe-pane -o -t "=${servicename}" "exec cat >> '${consolelog}'"
+			tmux pipe-pane -o -t "${servicename}" "exec cat >> '${consolelog}'"
 		fi
 	elif [ -n "${tmuxversion}" ]; then
 		# Get the digit version of tmux
@@ -118,17 +126,17 @@ fn_start_tmux(){
 		# tmux pipe-pane not supported in tmux versions < 1.6
 		if [ "${tmuxversion}" -lt "16" ]; then
 			echo "Console logging disabled: Tmux => 1.6 required
-			https://gameservermanagers.com/tmux-upgrade
+			https://linuxgsm.com/tmux-upgrade
 			Currently installed: $(tmux -V)" > "${consolelog}"
 
 		# Console logging disabled: Bug in tmux 1.8 breaks logging
 		elif [ "${tmuxversion}" -eq "18" ]; then
 			echo "Console logging disabled: Bug in tmux 1.8 breaks logging
-			https://gameservermanagers.com/tmux-upgrade
+			https://linuxgsm.com/tmux-upgrade
 			Currently installed: $(tmux -V)" > "${consolelog}"
 		# Console logging enable or not set
 		elif [ "${consolelogging}" == "on" ]||[ -z "${consolelogging}" ]; then
-			tmux pipe-pane -o -t "=${servicename}" "exec cat >> '${consolelog}'"
+			tmux pipe-pane -o -t "${servicename}" "exec cat >> '${consolelog}'"
 		fi
 	else
 		echo "Unable to detect tmux version" >> "${consolelog}"
@@ -160,7 +168,7 @@ sleep 1
 			echo "================================="
 			cat "${lgsmlogdir}/.${servicename}-tmux-error.tmp" | tee -a "${lgsmlog}"
 
-			# Detected error https://gameservermanagers.com/support
+			# Detected error https://linuxgsm.com/support
 			if [ $(grep -c "Operation not permitted" "${lgsmlogdir}/.${servicename}-tmux-error.tmp") ]; then
 			echo ""
 			echo "Fix"
@@ -177,13 +185,13 @@ sleep 1
 					echo ""
 					echo "	usermod -G tty $(whoami)"
 					echo ""
-					echo "https://gameservermanagers.com/tmux-op-perm"
-					fn_script_log_info "https://gameservermanagers.com/tmux-op-perm"
+					echo "https://linuxgsm.com/tmux-op-perm"
+					fn_script_log_info "https://linuxgsm.com/tmux-op-perm"
 				else
 					echo "No known fix currently. Please log an issue."
 					fn_script_log_info "No known fix currently. Please log an issue."
-					echo "https://gameservermanagers.com/support"
-					fn_script_log_info "https://gameservermanagers.com/support"
+					echo "https://linuxgsm.com/support"
+					fn_script_log_info "https://linuxgsm.com/support"
 				fi
 			fi
 		fi

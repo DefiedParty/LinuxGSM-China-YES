@@ -1,7 +1,7 @@
 #!/bin/bash
 # LinuxGSM install_gslt.sh function
 # Author: Daniel Gibbs
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Configures GSLT.
 
 local commandname="INSTALL"
@@ -12,7 +12,7 @@ echo ""
 echo "Game Server Login Token"
 echo "================================="
 sleep 1
-if [ "${gamename}" == "Counter-Strike: Global Offensive" ]||[ "${gamename}" == "Counter-Strike: Source" ]; then
+if [ "${gamename}" == "Counter-Strike: Global Offensive" ]||[ "${gamename}" == "Counter-Strike: Source" ]||[ "${gamename}" == "No More Room in Hell" ]; then
 	echo "GSLT is required to run a public ${gamename} server"
 	fn_script_log_info "GSLT is required to run a public ${gamename} server"
 else
@@ -21,15 +21,15 @@ else
 fi
 
 echo "Get more info and a token here:"
-echo "https://gameservermanagers.com/gslt"
+echo "https://linuxgsm.com/gslt"
 fn_script_log_info "Get more info and a token here:"
-fn_script_log_info "https://gameservermanagers.com/gslt"
+fn_script_log_info "https://linuxgsm.com/gslt"
 echo ""
 if [ -z "${autoinstall}" ]; then
 	if [ "${gamename}" != "Tower Unite" ]; then
 		echo "Enter token below (Can be blank)."
 		echo -n "GSLT TOKEN: "
-		read token
+		read -r token
 		if ! grep -q "^gslt=" "${configdirserver}/${servicename}.cfg" > /dev/null 2>&1; then
 			echo -e "\ngslt=\"${token}\"" >> "${configdirserver}/${servicename}.cfg"
 		else

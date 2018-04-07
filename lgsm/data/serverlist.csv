@@ -3,9 +3,11 @@ sdtd,sdtdserver,7 Days to Die
 ark,arkserver,ARK: Survival Evolved
 bo,boserver,Ballistic Overkill
 bf1942,bf1942server,Battlefield 1942
+bd,bdserver,Base Defense
 bmdm,bmdmserver,Black Mesa: Deathmatch
 bs,bsserver,Blade Symphony
 bb2,bb2server,BrainBread 2
+bt1944,bt1944server,Battalion 1944
 cod,codserver,Call of Duty
 cod2,cod2server,Call of Duty 2
 cod4,cod4server,Call of Duty 4
@@ -33,6 +35,7 @@ hldm,hldmserver,Half-Life: Deathmatch
 hw,hwserver,Hurtworld
 ins,insserver,Insurgency
 jc2,jc2server,Just Cause 2
+jc3,jc3server,Just Cause 3
 kf,kfserver,Killing Floor
 kf2,kf2server,Killing Floor 2
 l4d,l4dserver,Left 4 Dead
@@ -57,6 +60,7 @@ rust,rustserver,Rust
 samp,sampserver,San Andreas Multiplayer
 ss3,ss3server,Serious Sam 3: BFE
 sb,sbserver,Starbound
+st,stserver,Stationeers
 squad,squadserver,Squad
 sven,svenserver,Sven Co-op
 tf2,tf2server,Team Fortress 2
@@ -69,4 +73,5 @@ ut2k4,ut2k4server,Unreal Tournament 2004
 ut3,ut3server,Unreal Tournament 3
 ut99,ut99server,Unreal Tournament 99
 wet,wetserver,Wolfenstein: Enemy Territory
+etl,etlserver,ET: Legacy
 zps,zpsserver,Zombie Panic! Source

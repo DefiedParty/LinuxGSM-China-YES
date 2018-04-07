@@ -1,7 +1,7 @@
 #!/bin/bash
 # LinuxGSM core_functions.sh function
 # Author: Daniel Gibbs
-# Website: https://gameservermanagers.com
+# Website: https://linuxgsm.com
 # Description: Defines all functions to allow download and execution of functions using fn_fetch_function.
 # This function is called first before any other function. Without this file other functions will not load.
 
@@ -269,6 +269,11 @@ functionfile="${FUNCNAME}"
 fn_fetch_function
 }
 
+command_dev_query_raw.sh(){
+functionfile="${FUNCNAME}"
+fn_fetch_function
+}
+
 # Fix
 
 fix.sh(){
@@ -363,6 +368,11 @@ functionfile="${FUNCNAME}"
 fn_fetch_function
 }
 
+info_gamedig.sh(){
+functionfile="${FUNCNAME}"
+fn_fetch_function
+}
+
 info_glibc.sh(){
 functionfile="${FUNCNAME}"
 fn_fetch_function
@@ -426,9 +436,9 @@ functionfile="${FUNCNAME}"
 fn_fetch_function
 }
 
-# Monitor
+# Query
 
-monitor_gsquery.sh(){
+query_gamedig.sh(){
 functionfile="${FUNCNAME}"
 fn_fetch_function
 }
