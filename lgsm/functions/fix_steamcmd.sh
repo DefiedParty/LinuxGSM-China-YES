@@ -48,4 +48,12 @@ elif [ "${shortname}" == "tu" ]; then
 		cp -v "${serverfiles}/linux64/steamclient.so" "${executabledir}/steamclient.so" >> "${lgsmlog}"
 		fn_fix_msg_end
 	fi
+elif [ "${shortname}" == "pvr" ]; then
+	# Fixes: [S_API FAIL] SteamAPI_Init() failed; SteamAPI_IsSteamRunning() failed.
+	if [ ! -L "${executabledir}/steamclient.so" ]; then
+		fixname="steamclient.so"
+		fn_fix_msg_start
+		cp -s -v "${serverfiles}/linux64/steamclient.so" "${executabledir}/steamclient.so" >> "${lgsmlog}"
+		fn_fix_msg_end
+	fi
 fi

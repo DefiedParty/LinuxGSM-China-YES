@@ -463,6 +463,13 @@ elif [ "${gamename}" == "Mumble" ]; then
 	array_configs+=( murmur.ini )
 	fn_fetch_default_config
 	fn_default_config_remote
+elif [ "${gamename}" == "Pavlov VR" ]; then
+	gamedirname="PavlovVR"
+	fn_check_cfgdir
+	array_configs+=( Game.ini )
+	fn_fetch_default_config
+	fn_default_config_remote
+	fn_set_config_vars
 elif [ "${gamename}" == "Pirates, Vikings, and Knights II" ]; then
 	gamedirname="PiratesVikingandKnightsII"
 	array_configs+=( server.cfg )

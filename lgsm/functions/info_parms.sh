@@ -163,6 +163,11 @@ fn_info_parms_mordhau(){
 	beaconport=${beaconport:-"0"}
 }
 
+fn_info_parms_pavlovvr(){
+	port=${port:-"0"}
+	queryport=${queryport:-"0"}
+}
+
 fn_info_parms_unreal(){
 	defaultmap=${defaultmap:-"NOT SET"}
 	queryport=$((port + 1))
@@ -243,6 +248,8 @@ elif [ "${shortname}" == "tu" ]; then
 	fn_info_parms_towerunite
 elif [ "${shortname}" == "mh" ]; then
 	fn_info_parms_mordhau
+elif [ "${shortname}" == "pvr" ]; then
+	fn_info_parms_pavlovvr
 # Unreal/Unreal 2 engine
 elif [ "${engine}" == "unreal" ]||[ "${engine}" == "unreal2" ]; then
 	fn_info_parms_unreal

@@ -1200,6 +1200,16 @@ fn_info_message_mordhau(){
 	} | column -s $'\t' -t
 }
 
+fn_info_message_pavlovvr(){
+	echo "netstat -atunp | grep Pavlov"
+	echo -e ""
+	{
+		echo -e "DESCRIPTION\tDIRECTION\tPORT\tPROTOCOL"
+		echo -e "> Game\tINBOUND\t${port}\tudp"
+		echo -e "> Game\tINBOUND\t$((port+200))\tudp"
+	} | column -s $'\t' -t
+}
+
 fn_info_message_select_engine(){
 	# Display details depending on game or engine.
 	if [ "${gamename}" == "7 Days To Die" ]; then
@@ -1268,6 +1278,8 @@ fn_info_message_select_engine(){
 		fn_info_message_mta
 	elif [ "${gamename}" == "Mumble" ]; then
 		fn_info_message_mumble
+	elif [ "${shortname}" == "pvr" ]; then
+		fn_info_message_pavlovvr
 	elif [ "${gamename}" == "Return to Castle Wolfenstein" ]; then
 		fn_info_message_rtcw
 	elif [ "${gamename}" == "Rust" ]; then
