@@ -336,6 +336,11 @@ functionfile="${FUNCNAME}"
 fn_fetch_function
 }
 
+fix_pvr.sh(){
+functionfile="${FUNCNAME}"
+fn_fetch_function
+}
+
 fix_ro.sh(){
 functionfile="${FUNCNAME}"
 fn_fetch_function
