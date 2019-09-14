@@ -80,7 +80,7 @@ fi
 
 # Fixes that are run on install only.
 if [ "${function_selfname}" == "command_install.sh" ]; then
-		if [ "${shortname}" == "kf" ]||[ "${shortname}" == "kf2" ]||[ "${shortname}" == "ro" ]||[ "${shortname}" == "ut2k4" ]||[ "${shortname}" == "ut" ]||[ "${shortname}" == "ut3" ]; then
+		if [ "${shortname}" == "kf" ]||[ "${shortname}" == "kf2" ]||[ "${shortname}" == "pvr" ]||[ "${shortname}" == "ro" ]||[ "${shortname}" == "ut2k4" ]||[ "${shortname}" == "ut" ]||[ "${shortname}" == "ut3" ]; then
 			echo ""
 			echo "Applying Post-Install Fixes"
 			echo "================================="
@@ -91,6 +91,8 @@ if [ "${function_selfname}" == "command_install.sh" ]; then
 				fix_kf2.sh
 			elif [ "${shortname}" == "ro" ]; then
 				fix_ro.sh
+			elif [ "${shortname}" == "pvr" ]; then
+				fix_pvr.sh
 			elif [ "${shortname}" == "ut2k4" ]; then
 				fix_ut2k4.sh
 			elif [ "${shortname}" == "ut" ]; then
@@ -102,3 +104,4 @@ if [ "${function_selfname}" == "command_install.sh" ]; then
 			fi
 		fi
 fi
+
