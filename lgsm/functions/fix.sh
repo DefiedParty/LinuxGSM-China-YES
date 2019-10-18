@@ -91,8 +91,6 @@ if [ "${function_selfname}" == "command_install.sh" ]; then
 				fix_kf2.sh
 			elif [ "${shortname}" == "ro" ]; then
 				fix_ro.sh
-			elif [ "${shortname}" == "pvr" ]; then
-				fix_pvr.sh
 			elif [ "${shortname}" == "ut2k4" ]; then
 				fix_ut2k4.sh
 			elif [ "${shortname}" == "ut" ]; then
@@ -104,4 +102,3 @@ if [ "${function_selfname}" == "command_install.sh" ]; then
 			fi
 		fi
 fi
-
