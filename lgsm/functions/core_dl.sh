@@ -135,7 +135,7 @@ fn_fetch_file(){
 			echo -en "\033[1K"
 			local curlloop=0
 			while [ "${curlexitcode}" != 0 ]||[ -z "${curlexitcode}" ]||[ "${curlloop}" -le "10" ]; do
-				curlcmd=$(curl --progress-bar --retry 10 --retry-delay 3 --fail -L -C - -o "${local_filedir}/${local_filename}" "${remote_fileurl}")
+				curlcmd=$(curl --progress-bar --fail -L -o "${local_filedir}/${local_filename}" -C - "${remote_fileurl}")
 				curlexitcode=$?
 				((curlloop++))
 			done
