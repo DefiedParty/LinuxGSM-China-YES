@@ -133,9 +133,11 @@ fn_fetch_file(){
 			echo -en "downloading ${local_filename}..."
 			fn_sleep_time
 			echo -en "\033[1K"
-			while [ "${curlexitcode}" != 0 ]||[ -z "${curlexitcode}" ]; do
+			local curlloop=0
+			while [ "${curlexitcode}" != 0 ]||[ -z "${curlexitcode}" ]||[ "${curlloop}" -le "10" ]; do
 				curlcmd=$(curl -v --retry 10 --retry-delay 3 --fail -L -C - -o "${local_filedir}/${local_filename}" "${remote_fileurl}")
 				curlexitcode=$?
+				((curlloop++))
 			done
 			echo -en "downloading ${local_filename}..."
 		else
