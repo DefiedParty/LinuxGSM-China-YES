@@ -92,7 +92,6 @@ fn_info_parms_mohaa(){
 
 fn_info_parms_pavlovvr(){
 	port=${port:-"0"}
-	queryport=${queryport:-"0"}
 }
 
 fn_info_parms_mta(){
