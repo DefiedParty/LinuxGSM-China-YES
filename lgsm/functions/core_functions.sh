@@ -173,6 +173,11 @@ functionfile="${FUNCNAME[0]}"
 fn_fetch_function
 }
 
+check_diskuse.sh(){
+functionfile="${FUNCNAME[0]}"
+fn_fetch_function
+}
+
 check_executable.sh(){
 functionfile="${FUNCNAME[0]}"
 fn_fetch_function

@@ -103,3 +103,11 @@ do
 		check_system_requirements.sh
 	fi
 done
+
+local allowed_commands_array=( command_install.sh command_update.sh command_validate.sh )
+for allowed_command in "${allowed_commands_array[@]}"
+do
+	if [ "${allowed_command}" == "${function_selfname}" ]; then
+		check_diskuse.sh
+	fi
+done
