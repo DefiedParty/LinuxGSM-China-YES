@@ -19,6 +19,9 @@ jobs:
     - uses: actions/checkout@v2
 
     # Runs a single command using the runners shell
+    - name: GITHUB_REF
+      run: echo "GITHUB_REF: ${GITHUB_REF##*/}",
+
+    # Runs a single command using the runners shell
     - name: JC2 test
-      run: | echo "GITHUB_REF: ${GITHUB_REF##*/}",
-      bash tests/tests_jc2server.sh
+      run: bash tests/tests_jc2server.sh
