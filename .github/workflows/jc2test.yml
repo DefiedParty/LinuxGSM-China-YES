@@ -20,7 +20,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: GITHUB_REF
-      run: echo "GITHUB_REF: ${GITHUB_REF##*/}",
+      run: echo "GITHUB_REF: ${GITHUB_REF##*/}"
 
     # Runs a single command using the runners shell
     - name: JC2 test
