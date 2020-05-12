@@ -23,7 +23,7 @@ jobs:
       shell: bash
       run: echo "::set-env name=TRAVIS_BRANCH::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
     - name: Test
-      run: echo "${TRAVIS_BRANCH}"
+      run: TRAVIS_BRANCH=master"
 
     # Runs a single command using the runners shell
     - name: JC2 test
