@@ -17,7 +17,8 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
+    - uses: actions/setup-node@v1
+    - run: npm install gamedig
     # Runs a single command using the runners shell
     - name: JC2 test
       run: bash tests/tests_jc2server.sh
