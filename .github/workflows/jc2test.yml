@@ -20,5 +20,5 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: JC2 test
-      run: bash tests/tests_jc2server.sh
-
+      run: | echo "GITHUB_REF: ${GITHUB_REF##*/}",
+      bash tests/tests_jc2server.sh
