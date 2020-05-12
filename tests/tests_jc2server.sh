@@ -46,7 +46,8 @@ userinput="${1}"
 if [ -n "${TRAVIS}" ]||[ -n "${GITHUB_ACTIONS}" ]; then
 	selfname="travis"
 	if [ -n "${GITHUB_ACTIONS}" ]; then
-		TRAVIS_BRANCH=${GITHUB_REF##*/}
+		echo "GITHUB_REF: ${GITHUB_REF##*/}"
+		TRAVIS_BRANCH="${GITHUB_REF##*/}"
 	fi
 # if not using travis for tests
 else
