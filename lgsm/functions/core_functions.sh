@@ -172,6 +172,11 @@ functionfile="${FUNCNAME[0]}"
 fn_fetch_function
 }
 
+check_customfiles.sh(){
+functionfile="${FUNCNAME[0]}"
+fn_fetch_function
+}
+
 check_deps.sh(){
 functionfile="${FUNCNAME[0]}"
 fn_fetch_function
