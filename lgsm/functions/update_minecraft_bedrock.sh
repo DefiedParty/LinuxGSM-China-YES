@@ -54,6 +54,9 @@ fn_update_minecraft_localbuild(){
 		else
 			exitbypass=1
 			command_stop.sh
+			exitbypass=1
+			command_start.sh
+			sleep 3
 		fi
 	fi
 

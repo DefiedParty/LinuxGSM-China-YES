@@ -35,25 +35,51 @@ fn_update_minecraft_localbuild(){
 	# Gets local build info.
 	fn_print_dots "Checking local build: ${remotelocation}"
 	# Uses log file to gather info.
-	# Gives time for log file to generate.
-	if [ ! -f "${serverfiles}/logs/latest.log" ]; then
+	localbuild=$(grep version "${serverfiles}/logs/latest.log" 2>/dev/null | grep -Eo '((\.)?[0-9]{1,3}){1,3}\.[0-9]{1,3}(-pre[0-9]+)?|([0-9]+w[0-9]+[a-z])')
+	if [ -z "${localbuild}" ]; then
 		fn_print_error "Checking local build: ${remotelocation}"
 		fn_print_error_nl "Checking local build: ${remotelocation}: no log files containing version info"
 		fn_print_info_nl "Checking local build: ${remotelocation}: forcing server restart"
 		fn_script_log_error "No log files containing version info"
-		fn_script_log_info "Forcing server restart"
-		exitbypass=1
-		command_stop.sh
-		exitbypass=1
-		command_start.sh
+		fn_script_log_info "Forcing serv./m	er restart"
+
+		# start the server to allow logs to be generated.
+		check_status.sh
+		# If server stopped.
+		if [ "${status}" == "0" ]; then
+			exitbypass=1
+			command_start.sh
+		# If server started.
+		else
+			exitbypass=1
+			command_stop.sh
+			exitbypass=1
+			command_start.sh
+		fi
+
+		#check if game server started but crashed.
+		sleep 5
+		check_status.sh
+		if [ "${status}" == "0" ]; then
+			fn_print_fail_nl "Checking local build: ${remotelocation}: server has crashed on start"
+			fn_script_log_fatal "server has crashed on start"
+			core_exit.sh
+		fi
+
+		# check for localbuild until it is generated.
 		totalseconds=0
-		# Check again, allow time to generate logs.
-		while [ ! -f "${serverfiles}/logs/latest.log" ]; do
+		localbuild=$(grep version "${serverfiles}/logs/latest.log" 2>/dev/null | grep -Eo '((\.)?[0-9]{1,3}){1,3}\.[0-9]{1,3}(-pre[0-9]+)?|([0-9]+w[0-9]+[a-z])')
+		while [ -z "${localbuild}" ]; do
 			sleep 1
 			fn_print_info "Checking local build: ${remotelocation}: waiting for log file: ${totalseconds}"
 			if [ -v "${loopignore}" ]; then
 				loopignore=1
 				fn_script_log_info "Waiting for log file to generate"
+			fi
+
+			localbuild=$(grep version "${serverfiles}/logs/latest.log" 2>/dev/null | grep -Eo '((\.)?[0-9]{1,3}){1,3}\.[0-9]{1,3}(-pre[0-9]+)?|([0-9]+w[0-9]+[a-z])')
+			if [ "${localbuild}" ]; then
+				break
 			fi
 
 			if [ "${totalseconds}" -gt "120" ]; then
