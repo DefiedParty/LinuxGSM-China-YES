@@ -26,13 +26,13 @@ fn_install_mono_repo(){
 			echo -en "   \r"
 			if [ "${distroid}" == "ubuntu" ]; then
 				if [ "${distroversion}" == "18.04" ]; then
-					cmd="sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;echo 'deb https://download.mono-project.com/repo/ubuntu stable-bionic main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt update"
+					cmd="sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;echo 'deb https://download.mono-project.com/repo/ubuntu stable-bionic main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt-get update"
 					eval "${cmd}"
 				elif [ "${distroversion}" == "16.04" ]; then
-					cmd="sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;sudo apt install apt-transport-https;echo 'deb https://download.mono-project.com/repo/ubuntu stable-xenial main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt update"
+					cmd="sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;sudo apt-get install apt-transport-https;echo 'deb https://download.mono-project.com/repo/ubuntu stable-xenial main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt-get update"
 					eval "${cmd}"
 				elif [ "${distroversion}" == "14.04" ]; then
-					cmd="sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;sudo apt install apt-transport-https;echo 'deb https://download.mono-project.com/repo/ubuntu stable-trusty main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt update"
+					cmd="sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;sudo apt-get install apt-transport-https;echo 'deb https://download.mono-project.com/repo/ubuntu stable-trusty main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt-get update"
 					eval "${cmd}"
 				else
 					fn_print_warn_nl "Installing Mono repository."
@@ -43,13 +43,13 @@ fn_install_mono_repo(){
 				fi
 			elif [ "${distroid}" == "debian" ]; then
 				if [ "${distroversion}" == "10" ]; then
-					cmd="sudo apt install apt-transport-https dirmngr;sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;echo 'deb https://download.mono-project.com/repo/debian stable-buster main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt update"
+					cmd="sudo apt-get install apt-transport-https dirmngr;sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;echo 'deb https://download.mono-project.com/repo/debian stable-buster main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt-get update"
 					eval "${cmd}"
 				elif [ "${distroversion}" == "9" ]; then
-					cmd="sudo apt install apt-transport-https dirmngr;sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;echo 'deb https://download.mono-project.com/repo/debian stable-stretch main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt update"
+					cmd="sudo apt-get install apt-transport-https dirmngr;sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;echo 'deb https://download.mono-project.com/repo/debian stable-stretch main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt-get update"
 					eval "${cmd}"
 				elif [ "${distroversion}" == "8" ]; then
-					cmd="sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;sudo apt install apt-transport-https;echo 'deb https://download.mono-project.com/repo/debian stable-jessie main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt update"
+					cmd="sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF;sudo apt-get install apt-transport-https;echo 'deb https://download.mono-project.com/repo/debian stable-jessie main' | sudo tee /etc/apt/sources.list.d/mono-official-stable.list;sudo apt-get update"
 					eval "${cmd}"
 				else
 					echo -e "Mono auto install not available for ${distroname}"
@@ -184,8 +184,15 @@ if [ "${javacheck}" == "1" ]; then
 		fi
 		# Define required dependencies for SteamCMD.
 		if [ "${appid}" ]; then
-			if [ "${deptocheck}" ==  "glibc.i686" ]||[ "${deptocheck}" ==  "libstdc++64.i686" ]||[ "${deptocheck}" ==  "lib32gcc1" ]||[ "${deptocheck}" ==  "lib32stdc++6" ]; then
-				steamcmdfail=1
+			# lib32gcc1 is now called lib32gcc-s1 in debian 11
+			if [ "${distroid}" == "debian" ]&&[ "${distroversion}" == "11" ]; then
+				if [ "${deptocheck}" ==  "glibc.i686" ]||[ "${deptocheck}" ==  "libstdc++64.i686" ]||[ "${deptocheck}" ==  "lib32gcc-s1" ]||[ "${deptocheck}" ==  "lib32stdc++6" ]; then
+					steamcmdfail=1
+				fi
+			else
+				if [ "${deptocheck}" ==  "glibc.i686" ]||[ "${deptocheck}" ==  "libstdc++64.i686" ]||[ "${deptocheck}" ==  "lib32gcc1" ]||[ "${deptocheck}" ==  "lib32stdc++6" ]; then
+					steamcmdfail=1
+				fi
 			fi
 		fi
 	fi
@@ -248,7 +255,7 @@ fn_found_missing_deps(){
 			sleep 1
 			echo -en "   \r"
 			if [ "$(command -v dpkg-query 2>/dev/null)" ]; then
-				cmd="echo steamcmd steam/question select \"I AGREE\" | sudo debconf-set-selections; echo steamcmd steam/license note '' | sudo debconf-set-selections; sudo dpkg --add-architecture i386; sudo apt update; sudo apt -y install ${array_deps_missing[*]}"
+				cmd="echo steamcmd steam/question select \"I AGREE\" | sudo debconf-set-selections; echo steamcmd steam/license note '' | sudo debconf-set-selections; sudo dpkg --add-architecture i386; sudo apt-get update; sudo apt-get -y install ${array_deps_missing[*]}"
 				eval "${cmd}"
 			elif [ "$(command -v dnf 2>/dev/null)" ]; then
 				cmd="sudo dnf -y install ${array_deps_missing[*]}"
@@ -339,10 +346,15 @@ fn_deps_build_debian(){
 	# LinuxGSM requirements.
 	array_deps_required=( curl wget ca-certificates file bsdmainutils util-linux python3 tar bzip2 gzip unzip binutils bc jq tmux netcat )
 
-	# All servers except ts3, mumble, GTA and minecraft servers require libstdc++6 and lib32gcc1.
+	# All servers except ts3, mumble, GTA and minecraft servers require lib32stdc++6 and lib32gcc1.
 	if [ "${shortname}" != "ts3" ]&&[ "${shortname}" != "mumble" ]&&[ "${shortname}" != "mc" ]&&[ "${engine}" != "renderware" ]; then
 		if [ "${arch}" == "x86_64" ]; then
-			array_deps_required+=( lib32gcc1 lib32stdc++6 )
+			# lib32gcc1 is now called lib32gcc-s1 in debian 11
+			if [ "${distroid}" == "debian" ]&&[ "${distroversion}" == "11" ]; then
+				array_deps_required+=( lib32gcc-s1 lib32stdc++6 )
+			else
+				array_deps_required+=( lib32gcc1 lib32stdc++6 )
+			fi
 		else
 			array_deps_required+=( lib32stdc++6 )
 		fi
@@ -368,6 +380,9 @@ fn_deps_build_debian(){
 	# 7 Days to Die
 	elif [ "${shortname}" == "sdtd" ]; then
 		array_deps_required+=( telnet expect )
+	# Battlefield: Vietnam
+	elif [ "${shortname}" == "bfv" ]; then
+		array_deps_required+=( libncurses5:i386 libstdc++5:i386 )
 		# Battlefield 1942, Counter-Strike: Source, Garry's Mod, No More Room in Hell, Source Forts Classic, Zombie Master Reborn and Zombie Panic: Source
 	elif [ "${shortname}" == "bf1942" ]||[ "${shortname}" == "css" ]||[ "${shortname}" == "gmod" ]||[ "${shortname}" == "nmrih" ]||[ "${shortname}" == "sfc" ]||[ "${shortname}" == "zmr" ]||[ "${shortname}" == "zps" ]; then
 		if [ "${arch}" == "x86_64" ]; then
@@ -378,9 +393,6 @@ fn_deps_build_debian(){
 	# Brainbread 2, Don't Starve Together & Team Fortress 2
 	elif [ "${shortname}" == "bb2" ]||[ "${shortname}" == "dst" ]||[ "${shortname}" == "tf2" ]; then
 		array_deps_required+=( libcurl4-gnutls-dev:i386 )
-		if [ "${shortname}" == "tf2" ]; then
-			array_deps_required+=( libtcmalloc-minimal4:i386 )
-		fi
 	# Call of Duty & Medal of Honor: Allied Assault
 	elif [ "${shortname}" == "cod" ]||[ "${shortname}" == "coduo" ]||[ "${shortname}" == "cod2" ]||[ "${shortname}" == "mohaa" ]; then
 		array_deps_required+=( libstdc++5:i386 )
@@ -480,15 +492,15 @@ fn_deps_build_redhat(){
 	# 7 Days to Die
 	elif [ "${shortname}" == "sdtd" ]; then
 		array_deps_required+=( telnet expect )
+	# Battlefield: Vietnam
+	elif [ "${shortname}" == "bfv" ]; then
+		array_deps_required+=( compat-libstdc++-33.i686 glibc.i686 )
 		# Battlefield 1942, Counter-Strike: Source, Garry's Mod, No More Room in Hell, Source Forts Classic, Zombie Master Reborn and Zombie Panic: Source
 	elif [ "${shortname}" == "bf1942" ]||[ "${shortname}" == "css" ]||[ "${shortname}" == "gmod" ]||[ "${shortname}" == "nmrih" ]||[ "${shortname}" == "sfc" ]||[ "${shortname}" == "zmr" ]||[ "${shortname}" == "zps" ]; then
 		array_deps_required+=( ncurses-libs.i686 )
 	# Brainbread 2, Don't Starve Together & Team Fortress 2
 	elif [ "${shortname}" == "bb2" ]||[ "${shortname}" == "dst" ]||[ "${shortname}" == "tf2" ]; then
 		array_deps_required+=( libcurl.i686 )
-		if [ "${shortname}" == "tf2" ]; then
-			array_deps_required+=( gperftools-libs.i686 )
-		fi
 	# Call of Duty & Medal of Honor: Allied Assault
 	elif [ "${shortname}" == "cod" ]||[ "${shortname}" == "coduo" ]||[ "${shortname}" == "cod2" ]||[ "${shortname}" == "mohaa" ]; then
 		array_deps_required+=( compat-libstdc++-33.i686 )

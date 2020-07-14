@@ -7,6 +7,8 @@
 
 functionselfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 
+modulesversion="v20.3.3"
+
 # Core
 
 core_dl.sh(){
@@ -235,6 +237,11 @@ functionfile="${FUNCNAME[0]}"
 fn_fetch_function
 }
 
+check_version.sh(){
+functionfile="${FUNCNAME[0]}"
+fn_fetch_function
+}
+
 # Compress
 
 compress_unreal2_maps.sh(){
@@ -309,6 +316,11 @@ fn_fetch_function
 }
 
 fix_arma3.sh(){
+functionfile="${FUNCNAME[0]}"
+fn_fetch_function
+}
+
+fix_cmw.sh(){
 functionfile="${FUNCNAME[0]}"
 fn_fetch_function
 }

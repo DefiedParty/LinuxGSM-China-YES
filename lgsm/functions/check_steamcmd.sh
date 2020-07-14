@@ -13,7 +13,17 @@ fn_install_steamcmd(){
 	if [ ! -d "${steamcmddir}" ]; then
 		mkdir -p "${steamcmddir}"
 	fi
-	fn_fetch_file "http://media.steampowered.com/client/steamcmd_linux.tar.gz" "${tmpdir}" "steamcmd_linux.tar.gz"
+	remote_fileurl="${1}"
+	remote_fileurl_backup="${2}"
+	remote_fileurl_name="${3}"
+	remote_fileurl_backup_name="${4}"
+	local_filedir="${5}"
+	local_filename="${6}"
+	chmodx="${7:-0}"
+	run="${8:-0}"
+	forcedl="${9:-0}"
+	md5="${10:-0}"
+	fn_fetch_file "http://media.steampowered.com/client/steamcmd_linux.tar.gz" "" "" "" "${tmpdir}" "steamcmd_linux.tar.gz" "" "norun" "noforce" "nomd5"
 	fn_dl_extract "${tmpdir}" "steamcmd_linux.tar.gz" "${steamcmddir}"
 	chmod +x "${steamcmddir}/steamcmd.sh"
 }
@@ -21,18 +31,10 @@ fn_install_steamcmd(){
 fn_check_steamcmd_user(){
 	# Checks if steamuser is setup.
 	if [ "${steamuser}" == "username" ]; then
-		if [ "${legacymode}" == "1" ]; then
-			fn_print_fail_nl "Steam login not set. Update steamuser in ${selfname}"
-		else
-			fn_print_fail_nl "Steam login not set. Update steamuser in ${configdirserver}"
-		fi
+		fn_print_fail_nl "Steam login not set. Update steamuser in ${configdirserver}"
 		echo -e "	* Change steamuser=\"username\" to a valid steam login."
 		if [ -d "${lgsmlogdir}" ]; then
-			if [ "${legacymode}" == "1" ]; then
-				fn_script_log_fatal "Steam login not set. Update steamuser in ${selfname}"
-			else
-				fn_script_log_fatal "Steam login not set. Update steamuser in ${configdirserver}"
-			fi
+			fn_script_log_fatal "Steam login not set. Update steamuser in ${configdirserver}"
 		fi
 		core_exit.sh
 	fi
@@ -128,7 +130,7 @@ fn_check_steamcmd_clear(){
 if [ "$(command -v steamcmd 2>/dev/null)" ]&&[ -d "${rootdir}/steamcmd" ]; then
 	rm -rf "${steamcmddir:?}"
 	exitcode=$?
-	if [ ${exitcode} -ne 0 ]; then
+	if [ "${exitcode}" != 0 ]; then
 		fn_script_log_fatal "Removing ${rootdir}/steamcmd"
 	else
 		fn_script_log_pass "Removing ${rootdir}/steamcmd"

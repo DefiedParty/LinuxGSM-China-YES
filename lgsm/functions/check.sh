@@ -14,6 +14,10 @@ if [ "${commandname}" != "INSTALL" ]; then
 	check_root.sh
 fi
 
+if [ "${commandname}" != "UPDATE-LGSM" ]; then
+	check_version.sh
+fi
+
 check_tmuxception.sh
 
 if [ "$(whoami)" != "root" ]; then
@@ -44,7 +48,7 @@ if [ "$(whoami)" != "root" ]; then
 	done
 fi
 
-allowed_commands_array=( BACKUP CONSOLE DEBUG DETAILS MAP-COMPRESSOR FASTDL MODS-INSTALL MODS-REMOVE MODS-UPDATE MONITOR POST-DETAILS RESTART START STOP TEST-ALERT CHANGE-PASSWORD UPDATE UPDATE-LGSM VALIDATE WIPW )
+allowed_commands_array=( BACKUP CONSOLE DEBUG DETAILS MAP-COMPRESSOR FASTDL MODS-INSTALL MODS-REMOVE MODS-UPDATE MONITOR POST-DETAILS RESTART START STOP TEST-ALERT CHANGE-PASSWORD UPDATE UPDATE-LGSM VALIDATE WIPE )
 for allowed_command in "${allowed_commands_array[@]}"
 do
 	if [ "${allowed_command}" == "${commandname}" ]; then
@@ -78,7 +82,7 @@ do
 	fi
 done
 
-allowed_commands_array=( DEBUG START VALIDATE )
+allowed_commands_array=( DEBUG START UPDATE VALIDATE )
 for allowed_command in "${allowed_commands_array[@]}"
 do
 	if [ "${allowed_command}" == "${commandname}" ]; then
