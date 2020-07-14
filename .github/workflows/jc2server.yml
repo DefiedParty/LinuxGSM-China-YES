@@ -29,8 +29,10 @@ jobs:
     - name: Insert IP address in to config.lua 
       run: sed -i "/BindIP/c\BindIP                      = \"127.0.0.1\"," "serverfiles/config.lua"      
     - name: ./jc2server start
-      run: bash ./jc2server start    
-    - name: ./jc2server stop
-      run: bash ./jc2server stop 
+      run: bash ./jc2server start
     - name: ./jc2server restart
+      run: bash ./jc2server restart
+    - name: ./jc2server stop
+      run: bash ./jc2server stop
+    - name: ./jc2server restart (server offline)
       run: bash ./jc2server restart         
