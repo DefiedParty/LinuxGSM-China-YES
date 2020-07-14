@@ -26,4 +26,9 @@ jobs:
       run: bash ./linuxgsm.sh list; bash ./linuxgsm.sh jc2server
     - name: ./jc2server auto-install
       run: bash ./jc2server auto-install
-      
+    - name: ./jc2server start
+      run: bash ./jc2server start    
+    - name: ./jc2server stop
+      run: bash ./jc2server stop 
+    - name: ./jc2server restart
+      run: bash ./jc2server restart         
