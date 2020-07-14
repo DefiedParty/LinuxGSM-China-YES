@@ -20,6 +20,8 @@ jobs:
     - uses: actions/setup-node@v1
     - run: npm install gamedig -g
     # Runs a single command using the runners shell
+    - name: linuxgsm.sh pre-test setup
+      run: bash chmod +x lgsm/functions/*
     - name: linuxgsm.sh tests
       run: bash ./linuxgsm.sh list; bash ./linuxgsm.sh jc2server
     - name: ./jc2server install
