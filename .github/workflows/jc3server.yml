@@ -24,6 +24,6 @@ jobs:
       run: chmod +x lgsm/functions/*
     - name: linuxgsm.sh tests
       run: bash ./linuxgsm.sh list; bash ./linuxgsm.sh jc2server
-    - name: ./jc2server install
-      run: bash ./jc2server install
+    - name: ./jc2server auto-install
+      run: bash ./jc2server auto-install
       
