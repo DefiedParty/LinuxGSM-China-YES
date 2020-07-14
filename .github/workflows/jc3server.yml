@@ -21,8 +21,7 @@ jobs:
     - run: npm install gamedig -g
     # Runs a single command using the runners shell
     - name: linuxgsm.sh tests
-      run: bash ./linuxgsm.sh list
-      run: bash ./linuxgsm.sh jc2server
+      run: bash ./linuxgsm.sh list; bash ./linuxgsm.sh jc2server
     - name: ./jc2server install
       run: bash ./jc2server install
       
