@@ -30,7 +30,7 @@ jobs:
       run: bash ./linuxgsm.sh list; bash ./linuxgsm.sh jc2server
     - name: ./jc2server (get-opt)
       run: bash ./jc2server
-     - name: ./jc2server dev
+    - name: ./jc2server dev
       run: bash ./jc2server dev
     # Install
     - name: ./jc2server auto-install
@@ -42,7 +42,7 @@ jobs:
       run: sed -i "/BindIP/c\BindIP                      = \"127.0.0.1\"," "serverfiles/config.lua"      
     - name: ./jc2server start
       run: bash ./jc2server start
-     - name: ./jc2server start (already online)
+    - name: ./jc2server start (already online)
       run: bash ./jc2server start     
     - name: ./jc2server restart
       run: bash ./jc2server restart
