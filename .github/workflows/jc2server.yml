@@ -35,6 +35,11 @@ jobs:
     # Install
     - name: ./jc2server auto-install
       run: bash ./jc2server auto-install
+    - run: false
+    - run: echo runs on success or failure
+      if: succeeded() || failed()
+    - run: echo runs always, even if the prior step was cancelled
+      if: always()     
     # Start. Stop, Restart
     - name: ./jc2server start (no ip set)
       run: bash ./jc2server start
