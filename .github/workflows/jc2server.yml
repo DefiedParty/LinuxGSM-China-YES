@@ -32,10 +32,10 @@ jobs:
       run: bash ./jc2server
      - name: ./jc2server dev
       run: bash ./jc2server dev
-   # Install
+    # Install
     - name: ./jc2server auto-install
       run: bash ./jc2server auto-install
-  # Start. Stop, Restart
+    # Start. Stop, Restart
     - name: ./jc2server start (no ip set)
       run: bash ./jc2server start      
     - name: Insert IP address in to config.lua 
