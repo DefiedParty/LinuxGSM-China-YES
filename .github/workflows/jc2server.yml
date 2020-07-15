@@ -39,7 +39,7 @@ jobs:
     - name: ./jc2server start (no ip set)
       run: | 
           bash ./jc2server start
-          if [ $? == 1 ]; then echo "TEST"; fi
+          echo "exitcode: $?"
     - name: Insert IP address in to config.lua
       run: sed -i "/BindIP/c\BindIP                      = \"127.0.0.1\"," "serverfiles/config.lua"      
     - name: ./jc2server start
