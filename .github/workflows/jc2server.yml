@@ -35,12 +35,10 @@ jobs:
     # Install
     - name: ./jc2server auto-install
       run: bash ./jc2server auto-install
-    - run: echo runs always, even if the prior step was cancelled
-      if: always()
     # Start. Stop, Restart
     - name: ./jc2server start (no ip set)
+      if: ${{ failure() }}
       run: bash ./jc2server start
-      if: always()   
     - name: Insert IP address in to config.lua 
       run: sed -i "/BindIP/c\BindIP                      = \"127.0.0.1\"," "serverfiles/config.lua"      
     - name: ./jc2server start
