@@ -38,8 +38,6 @@ jobs:
     # Start. Stop, Restart
     - name: ./rustserver start (no ip set)
       run: bash .github/exitcode.sh "./rustserver start" "1"
-    - name: Insert IP address in to config.lua
-      run: sed -i "/BindIP/c\BindIP                      = \"127.0.0.1\"," "serverfiles/config.lua"      
     - name: ./rustserver start
       run: bash ./rustserver start
     - name: ./rustserver start (already online)
