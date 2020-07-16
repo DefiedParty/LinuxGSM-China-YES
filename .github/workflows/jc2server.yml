@@ -37,9 +37,7 @@ jobs:
       run: bash ./jc2server auto-install
     # Start. Stop, Restart
     - name: ./jc2server start (no ip set)
-      run: | 
-          bash ./jc2server start
-          echo "exitcode: $?" 
+      run: bash .github/exitcode.sh "./jc2server start" "1"
     - name: Insert IP address in to config.lua
       run: sed -i "/BindIP/c\BindIP                      = \"127.0.0.1\"," "serverfiles/config.lua"      
     - name: ./jc2server start
