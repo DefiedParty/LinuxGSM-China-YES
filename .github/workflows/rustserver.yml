@@ -1,0 +1,80 @@
+# This is a basic workflow to help you get started with Actions
+
+name: rustserver
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on: push
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+    - run: npm install gamedig -g
+    # Runs a single command using the runners shell
+    - name: linuxgsm.sh pre-test setup
+      run: chmod +x lgsm/functions/*
+    - name: ./linuxgsm.sh (get-opt)
+      run: bash ./linuxgsm.sh       
+    - name: ./linuxgsm.sh list
+      run: bash ./linuxgsm.sh list     
+    - name: ./linuxgsm.sh rustserver
+      run: bash ./linuxgsm.sh rustserver
+    - name: ./rustserver (get-opt)
+      run: bash ./rustserver
+    - name: ./rustserver dev
+      run: bash ./rustserver dev
+    # Install
+    - name: ./rustserver auto-install
+      run: bash ./rustserver auto-install
+    # Start. Stop, Restart
+    - name: ./rustserver start (no ip set)
+      run: bash .github/exitcode.sh "./rustserver start" "1"
+    - name: Insert IP address in to config.lua
+      run: sed -i "/BindIP/c\BindIP                      = \"127.0.0.1\"," "serverfiles/config.lua"      
+    - name: ./rustserver start
+      run: bash ./rustserver start
+    - name: ./rustserver start (already online)
+      run: bash .github/exitcode.sh "./rustserver start" "2"    
+    - name: ./rustserver restart
+      run: bash ./rustserver restart
+    - name: ./rustserver stop
+      run: bash ./rustserver stop
+    - name: ./rustserver restart (server offline)
+      run: bash ./rustserver restart
+    # update  
+    - name: ./rustserver update (no update required)
+      run: bash ./rustserver update
+    - name: ./rustserver update (update required - online)
+      run: |
+        sed -i 's/[0-9]\+/0/' "serverfiles/steamapps/appmanifest_261140.acf"
+        bash ./rustserver update
+    - name: ./rustserver update (update required - offline)
+      run: |
+        sed -i 's/[0-9]\+/0/' "serverfiles/steamapps/appmanifest_261140.acf"
+        bash ./rustserver stop
+        bash ./rustserver update
+    - name: ./rustserver update (remove appmanifest file)
+      run: |
+        rm --verbose "serverfiles/steamapps/appmanifest_261140.acf"
+        bash ./rustserver update   
+    - name: ./rustserver force-update (offline)
+      run: bash ./rustserver force-update
+    - name: ./rustserver force-update (online)
+      run: |
+        bash ./rustserver start
+        bash ./rustserver update
+    - name: ./rustserver validate (online)
+      run: bash ./rustserver validate
+    - name: ./rustserver validate (offline)
+      run: |
+        bash ./rustserver stop
+        bash ./rustserver validate           
