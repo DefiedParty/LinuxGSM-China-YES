@@ -64,5 +64,17 @@ jobs:
         bash ./jc2server update
     - name: ./jc2server update (remove appmanifest file)
       run: |
-        rm --verbose "${serverfiles:?}/steamapps/appmanifest_261140.acf"
+        rm --verbose "serverfiles/steamapps/appmanifest_261140.acf"
         bash ./jc2server update   
+    - name: ./jc2server force-update (offline)
+      run: bash ./jc2server force-update
+    - name: ./jc2server force-update (online)
+      run: |
+        bash ./jc2server start
+        bash ./jc2server update
+    - name: ./jc2server validate (online)
+      run: bash ./jc2server validate
+    - name: ./jc2server validate (offline)
+      run: |
+        bash ./jc2server stop
+        bash ./jc2server validate           
