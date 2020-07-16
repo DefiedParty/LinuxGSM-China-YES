@@ -50,9 +50,9 @@ jobs:
       run: bash ./jc2server stop
     - name: ./jc2server restart (server offline)
       run: bash ./jc2server restart
-    - name: ./jc2server update
+    - name: ./jc2server update (not update required)
       run: bash ./jc2server update
-    - name: ./jc2server update
+    - name: ./jc2server update (update required)
       run: |
         sed -i 's/[0-9]\+/0/' "serverfiles/steamapps/appmanifest_261140.acf"
         bash ./jc2server update
