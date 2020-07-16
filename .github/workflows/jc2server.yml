@@ -43,7 +43,7 @@ jobs:
     - name: ./jc2server start
       run: bash ./jc2server start
     - name: ./jc2server start (already online)
-      run: bash ./jc2server start     
+      run: bash .github/exitcode.sh "./jc2server start" "2"    
     - name: ./jc2server restart
       run: bash ./jc2server restart
     - name: ./jc2server stop
