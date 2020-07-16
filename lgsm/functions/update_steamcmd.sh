@@ -128,12 +128,12 @@ fn_update_steamcmd_compare(){
 			fn_stop_warning
 			exitbypass=1
 			command_stop.sh
-			fn_commandname
+			fn_firstcommand_reset
 			exitbypass=1
 			fn_update_steamcmd_dl
 			exitbypass=1
 			command_start.sh
-			fn_commandname
+			fn_firstcommand_reset
 		fi
 		date +%s > "${lockdir}/lastupdate.lock"
 		alert="update"
@@ -233,11 +233,12 @@ if [ "${forceupdate}" == "1" ]; then
 		fn_stop_warning
 		exitbypass=1
 		command_stop.sh
-		fn_update_steamcmd_dl
+		fn_firstcommand_reset
+		fn_dl_steamcmd
 		date +%s > "${lockdir}/lastupdate.lock"
 		exitbypass=1
 		command_start.sh
-		fn_commandname
+		fn_firstcommand_reset
 	else
 		fn_update_steamcmd_dl
 		date +%s > "${lockdir}/lastupdate.lock"

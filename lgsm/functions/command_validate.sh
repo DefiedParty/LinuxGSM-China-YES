@@ -4,12 +4,10 @@
 # Website: https://linuxgsm.com
 # Description: Runs a server validation.
 
-fn_commandname(){
-	commandname="VALIDATE"
-	commandaction="Validating"
-	functionselfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
-}
-fn_commandname
+commandname="VALIDATE"
+commandaction="Validating"
+functionselfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
+fn_firstcommand_set
 
 fn_validate(){
 	fn_script_log_warn "SteamCMD: Validate might overwrite some customised files"
@@ -84,11 +82,11 @@ if [ "${status}" != "0" ]; then
 	fn_stop_warning
 	exitbypass=1
 	command_stop.sh
-	fn_commandname
+	fn_firstcommand_reset
 	fn_validate
 	exitbypass=1
 	command_start.sh
-	fn_commandname
+	fn_firstcommand_reset
 else
 	fn_validate
 fi
