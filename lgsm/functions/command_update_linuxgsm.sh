@@ -35,7 +35,7 @@ else
 	fn_print_ok_nl "Selecting repo: ${remotereponame}"
 fi
 
-fn_print_start "${remotereponame}"
+fn_print_start_nl "${remotereponame}"
 
 # Print the repo url
 if [ "${remotereponame}" == "GitHub" ]; then
