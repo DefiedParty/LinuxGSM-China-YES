@@ -48,7 +48,11 @@ userinput="${1}"
 # from a different repo and/or branch.
 githubuser="GameServerManagers"
 githubrepo="LinuxGSM"
-githubbranch="${githubbranch:master}"
+githubbranch="master"
+
+if [ -n "${GITHUB_REF_NAME}" ]; then
+	githubbranch="${GITHUB_REF_NAME}"
+fi
 
 # Core function that is required first.
 core_functions.sh(){
