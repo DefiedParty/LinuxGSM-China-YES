@@ -50,7 +50,11 @@ githubuser="GameServerManagers"
 githubrepo="LinuxGSM"
 githubbranch="master"
 
+# GitHub Actions Branch Select
+# overwrite the defaults if using GitHub Actions
 if [ -n "${GITHUB_REF_NAME}" ]; then
+	githubuser="${GITHUB_REPOSITORY_OWNER}"
+	githubrepo="${GITHUB_REPOSITORY_NAME}"
 	githubbranch="${GITHUB_REF_NAME}"
 fi
 
