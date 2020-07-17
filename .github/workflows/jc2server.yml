@@ -17,6 +17,9 @@ jobs:
     steps:
     - name: GitHub Environment Variables Action
       uses: FranzDiebold/github-env-vars-action@v1.2.0
+      run: |
+         githubbranch=${GITHUB_REF_NAME}
+         echo "GITHUB BRANCH: ${githubbranch}"
       env:
         githubbranch: ${GITHUB_REF_NAME}
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -26,7 +29,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: linuxgsm.sh pre-test setup
       run: |
-        echo "GITHUB BRANCH: ${githubbranch}"      
         chmod +x lgsm/functions/*
     - name: ./linuxgsm.sh (get-opt)
       run: bash ./linuxgsm.sh       
