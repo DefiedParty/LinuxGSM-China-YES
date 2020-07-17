@@ -35,6 +35,13 @@ else
 	fn_print_ok_nl "Selecting repo: ${remotereponame}"
 fi
 
+# Print the repo url
+if [ "${remotereponame}" == "GitHub" ]; then
+	echo -en "repo location: https://github.com/${githubuser}/${githubrepo}/${githubbranch}"
+else
+	echo -en "repo location: https://bitbucket.org/${githubuser}/${githubrepo}/${githubbranch}"
+fi
+
 # Check linuxsm.sh
 echo -en "checking ${remotereponame} linuxgsm.sh...\c"
 if [ "${remotereponame}" == "GitHub" ]; then
