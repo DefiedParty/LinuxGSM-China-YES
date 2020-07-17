@@ -19,9 +19,8 @@ fn_monitor_check_lockfile(){
 		fn_print_dots "Checking lockfile: "
 		fn_print_checking_eol
 		fn_script_log_info "Checking lockfile: CHECKING"
-		fn_print_error "Checking lockfile: No lockfile found: "
-		fn_print_error_eol_nl
-		fn_script_log_error "Checking lockfile: No lockfile found: ERROR"
+		fn_print_warn "Checking lockfile: No lockfile found "
+		fn_script_log_warn "Checking lockfile: No lockfile found"
 		echo -e "* Start ${selfname} to run monitor."
 		core_exit.sh
 	fi
@@ -38,9 +37,8 @@ fn_monitor_check_update(){
 		fn_print_dots "Checking active updates: "
 		fn_print_checking_eol
 		fn_script_log_info "Checking active updates: CHECKING"
-		fn_print_error_nl "Checking active updates: SteamCMD is currently checking for updates: "
-		fn_print_error_eol
-		fn_script_log_error "Checking active updates: SteamCMD is currently checking for updates: ERROR"
+		fn_print_error_nl "Checking active updates: SteamCMD is currently checking for updates"
+		fn_script_log_error "Checking active updates: SteamCMD is currently checking for updates"
 		core_exit.sh
 	fi
 }
