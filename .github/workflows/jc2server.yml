@@ -15,6 +15,25 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Inject slug/short variables
+      uses: rlespinasse/github-slug-action@v2.x
+
+    - name: Print slug/short variables
+      run: |
+        echo "Slug variables"
+        echo " - ${{ env.GITHUB_REF_SLUG }}"
+        echo " - ${{ env.GITHUB_HEAD_REF_SLUG }}"
+        echo " - ${{ env.GITHUB_BASE_REF_SLUG }}"
+        echo " - ${{ env.GITHUB_REPOSITORY_SLUG }}"
+        echo "Slug URL variables"
+        echo " - ${{ env.GITHUB_REF_SLUG_URL }}"
+        echo " - ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
+        echo " - ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
+        echo " - ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
+        echo "Short SHA variables"
+        echo " - ${{ env.GITHUB_SHA_SHORT }}"
+      env:
+        githubbranch: ${{ env.GITHUB_REF_SLUG_URL }}
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
