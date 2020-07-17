@@ -77,4 +77,16 @@ jobs:
     - name: ./jc2server validate (offline)
       run: |
         bash ./jc2server stop
-        bash ./jc2server validate           
+        bash ./jc2server validate
+    - name: ./jc2server update-lgsm
+      run: bash ./jc2server update-lgsm
+    - name: ./jc2server monitor (offline)
+      run: bash ./jc2server monitor
+    - name: ./jc2server monitor (offline with lockfile)
+      run: |
+        bash date '+%s' > "${lockdir}/${selfname}.lock"
+        bash ./jc2server monitor
+    - name: ./jc2server monitor (online)
+      run: |
+        bash ./jc2server start
+        bash ./jc2server monitor     
