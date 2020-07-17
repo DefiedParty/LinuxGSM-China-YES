@@ -35,11 +35,15 @@ else
 	fn_print_ok_nl "Selecting repo: ${remotereponame}"
 fi
 
+fn_print_start "${remotereponame}"
+
 # Print the repo url
 if [ "${remotereponame}" == "GitHub" ]; then
-	echo -en "repo location: https://github.com/${githubuser}/${githubrepo}/${githubbranch}"
+	echo -e "repo location: https://github.com/${githubuser}/${githubrepo}/${githubbranch}"
+	fn_script_log_info "repo location: https://github.com/${githubuser}/${githubrepo}/${githubbranch}"
 else
-	echo -en "repo location: https://bitbucket.org/${githubuser}/${githubrepo}/${githubbranch}"
+	echo -e "repo location: https://bitbucket.org/${githubuser}/${githubrepo}/${githubbranch}"
+	fn_script_log_info "repo location: https://github.com/${githubuser}/${githubrepo}/${githubbranch}"
 fi
 
 # Check linuxsm.sh
@@ -204,7 +208,7 @@ if [ -n "${functionsdir}" ]; then
 	fi
 fi
 
-fn_print_ok_nl "Updating functions"
-fn_script_log_pass "Updating functions"
+fn_print_complete_nl "Updating functions: ${remotereponame}"
+fn_script_log_pass "Updating functions: ${remotereponame}"
 
 core_exit.sh
