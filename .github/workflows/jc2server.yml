@@ -29,7 +29,9 @@ jobs:
     - run: npm install gamedig -g
     # Runs a single command using the runners shell
     - name: linuxgsm.sh pre-test setup
-      run: chmod +x lgsm/functions/*
+      run: |
+        echo "GITHUB BRANCH: ${githubbranch}"      
+        chmod +x lgsm/functions/*
     - name: ./linuxgsm.sh (get-opt)
       run: bash ./linuxgsm.sh       
     - name: ./linuxgsm.sh list
