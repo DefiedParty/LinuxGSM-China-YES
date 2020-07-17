@@ -22,7 +22,7 @@ jobs:
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
         echo EXTRACT_GITHUB_REF_HEADS=$(echo ${GITHUB_REF#refs/heads/})
       env:
-        githubbranch: ${{ env.GITHUB_REF_SLUG_URL }}
+        githubbranch: ${{ EXTRACT_GITHUB_REF_HEADS }}
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
