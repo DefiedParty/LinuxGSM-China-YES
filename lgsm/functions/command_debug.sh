@@ -111,7 +111,7 @@ elif [ "${shortname}" == "arma3" ]; then
 	# stripped when loading straight from the console.
 	${executable} ${parms//\\;/;}
 elif [ "${engine}" == "quake" ]; then
-		${executable} ${parms} -condebug
+	${executable} ${parms} -condebug
 else
 	${executable} ${parms}
 fi
