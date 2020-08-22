@@ -7,10 +7,15 @@
 
 [LinuxGSM](https://linuxgsm.com) is the command-line tool for quick, simple deployment and management of Linux dedicated game servers.
 
-## 现在还处于debug阶段，不能正常使用！
+### 现在还处于测试阶段，不保证能正常使用！
+## 使用
 
-## 执行命令
-wget -O linuxgsm.sh https://gitee.com/DefiedParty/LinuxGSM/raw/master/linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh csgoserver
++ 执行命令初始化
+wget -O cn-start.sh https://gitee.com/DefiedParty/LinuxGSM/raw/master/cn-start.sh && chmod +x cn-start.sh && bash cn-start.sh
+
++ 运行linuxgsm.sh
+bash linuxgsm.sh 游戏名 
+例如 bash linuxgsm.sh csgoserver
 
 ## Hassle-Free Dedicated Game Servers
 
