@@ -135,7 +135,7 @@ fn_info_message_gameserver_resource(){
 	echo -e "${lightyellow}Game Server Resource Usage${default}"
 	fn_messages_separator
 	{
-		if [ "${status}" == "1" ]; then
+		if [ "${status}" != "0" ]; then
 			echo -e "${lightblue}CPU Used:\t${default}${cpuused}%${default}"
 			echo -e "${lightblue}Mem Used:\t${default}${pmemused}%\t${memused}MB${default}"
 		else
@@ -167,7 +167,7 @@ fn_info_message_gameserver(){
 	# Game type:        0
 	# Game mode:        0
 	# Tick rate:        64
-	# Master Server:    true
+	# Master Server:    listed
 	# Status:           ONLINE
 
 	echo -e ""
@@ -187,9 +187,19 @@ fn_info_message_gameserver(){
 			echo -e "${lightblue}Server Description:\t${default}${serverdescription}"
 		fi
 
+		# Appid
+		if [ -n "${appid}" ]; then
+			echo -e "${lightblue}App ID:\t${default}${appid}"
+		fi
+
 		# Branch
 		if [ -n "${branch}" ]; then
 			echo -e "${lightblue}Branch:\t${default}${branch}"
+		fi
+
+		# Beta Password
+		if [ -n "${betapassword}" ]; then
+			echo -e "${lightblue}Beta Password:\t${default}${betapassword}"
 		fi
 
 		# Server ip
@@ -367,12 +377,17 @@ fn_info_message_gameserver(){
 			echo -e "${lightblue}Map rotation:\t${default}${randommap}"
 		fi
 
+		# Server Version (Jedi Knight II: Jedi Outcast)
+		if [ -n "${serverversion}" ]; then
+			echo -e "${lightblue}Server Version:\t${default}${serverversion}"
+		fi
+
 		# Listed on Master server
 		if [ -n "${displaymasterserver}" ]; then
 			if [ "${displaymasterserver}" == "true" ]; then
-				echo -e "${lightblue}Master server:\t${green}${displaymasterserver}${default}"
+				echo -e "${lightblue}Master server:\t${green}listed${default}"
 			else
-				echo -e "${lightblue}Master server:\t${red}${displaymasterserver}${default}"
+				echo -e "${lightblue}Master server:\t${red}not listed${default}"
 			fi
 		fi
 
@@ -809,6 +824,15 @@ fn_info_message_inss(){
 		echo -e "> RCON\tINBOUND\t${rconport}\ttcp"
 	} | column -s $'\t' -t
 }
+
+	fn_info_message_jk2(){
+		echo -e "netstat -atunp | grep jk2mvded"
+		echo -e ""
+		{
+			echo -e "DESCRIPTION\tDIRECTION\tPORT\tPROTOCOL"
+			echo -e "> Game\tINBOUND\t${port}\tudp"
+		} | column -s $'\t' -t
+	}
 
 fn_info_message_justcause2(){
 	echo -e "netstat -atunp | grep Jcmp-Server"
@@ -1446,6 +1470,8 @@ fn_info_message_select_engine(){
 		fn_info_message_hurtworld
 	elif [ "${shortname}" == "inss" ]; then
 		fn_info_message_inss
+	elif [ "${shortname}" == "jk2" ]; then
+		fn_info_message_jk2
 	elif [ "${shortname}" == "jc2" ]; then
 		fn_info_message_justcause2
 	elif [ "${shortname}" == "jc3" ]; then
@@ -1515,7 +1541,7 @@ fn_info_message_select_engine(){
 	elif [ "${shortname}" == "bf1942" ]; then
 		fn_info_message_bf1942
 	elif [ "${shortname}" == "bfv" ]; then
-		fn_info_message_bfv	
+		fn_info_message_bfv
 	elif [ "${shortname}" == "rtcw" ]; then
 		fn_info_message_rtcw
 	elif [ "${shortname}" == "rust" ]; then

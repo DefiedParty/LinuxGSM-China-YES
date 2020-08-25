@@ -7,7 +7,7 @@
 
 functionselfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 
-modulesversion="v20.3.3"
+modulesversion="v20.4.1"
 
 # Core
 
@@ -610,6 +610,11 @@ fn_fetch_function
 }
 
 update_factorio.sh(){
+functionfile="${FUNCNAME[0]}"
+fn_fetch_function
+}
+
+update_jediknight2.sh(){
 functionfile="${FUNCNAME[0]}"
 fn_fetch_function
 }

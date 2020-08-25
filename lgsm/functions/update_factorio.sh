@@ -43,7 +43,7 @@ fn_update_factorio_localbuild(){
 fn_update_factorio_remotebuild(){
 	# Gets remote build info.
 	remotebuild=$(curl -s "https://factorio.com/get-download/${downloadbranch}/headless/${factorioarch}" | grep -o '[0-9]\.[0-9]\{1,\}\.[0-9]\{1,\}' | head -1)
-	if [ "${installer}" != "1" ]; then
+	if [ "${firstcommandname}" != "INSTALL" ]; then
 		fn_print_dots "Checking remote build: ${remotelocation}"
 		# Checks if remotebuild variable has been set.
 		if [ -z "${remotebuild}" ]||[ "${remotebuild}" == "null" ]; then
@@ -96,17 +96,21 @@ fn_update_factorio_compare(){
 			fn_update_factorio_dl
 			exitbypass=1
 			command_start.sh
+			fn_firstcommand_reset
 			exitbypass=1
 			command_stop.sh
+			fn_firstcommand_reset
 		# If server started.
 		else
-			fn_stop_warning
+			fn_print_restart_warning
 			exitbypass=1
 			command_stop.sh
+			fn_firstcommand_reset
 			exitbypass=1
 			fn_update_factorio_dl
 			exitbypass=1
 			command_start.sh
+			fn_firstcommand_reset
 		fi
 		date +%s > "${lockdir}/lastupdate.lock"
 		alert="update"
@@ -130,21 +134,6 @@ fn_update_factorio_compare(){
 	fi
 }
 
-fn_stop_warning(){
-	fn_print_warn "Updating server: SteamCMD: ${selfname} will be stopped during update"
-	fn_script_log_warn "Updating server: SteamCMD: ${selfname} will be stopped during update"
-	totalseconds=3
-	for seconds in {3..1}; do
-		fn_print_warn "Updating server: SteamCMD: ${selfname} will be stopped during update: ${totalseconds}"
-		totalseconds=$((totalseconds - 1))
-		sleep 1
-		if [ "${seconds}" == "0" ]; then
-			break
-		fi
-	done
-	fn_print_warn_nl "Updating server: SteamCMD: ${selfname} will be stopped during update"
-}
-
 # The location where the builds are checked and downloaded.
 remotelocation="factorio.com"
 
@@ -159,7 +148,7 @@ else
 	downloadbranch="${branch}"
 fi
 
-if [ "${installer}" == "1" ]; then
+if [ "${firstcommandname}" == "INSTALL" ]; then
 	fn_update_factorio_remotebuild
 	fn_update_factorio_dl
 else
