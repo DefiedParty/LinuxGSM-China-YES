@@ -5,12 +5,34 @@
 # Description: Handles updating Oxide mod.
 
 functionselfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
+# Will need to move
+modcommand="oxide"
+# Create ${modcommand}-files.txt containing the full extracted file/directory list.
+fn_mod_create_filelist(){
+	echo -en "Building ${modcommand}-files.txt..."
+	fn_sleep_time
+	# ${modsdir}/${modcommand}-files.txt.
+	find "${tmpdir}/extract" -mindepth 1 -printf '%P\n' > "${modsdir}/${modcommand}-files.txt"
+	local exitcode=$?
+	if [ "${exitcode}" != 0 ]; then
+		fn_print_fail_eol_nl
+		fn_script_log_fatal "Building ${modsdir}/${modcommand}-files.txt"
+		core_exit.sh
+	else
+		fn_print_ok_eol_nl
+		fn_script_log_pass "Building ${modsdir}/${modcommand}-files.txt"
+	fi
+	# Adding removed files if needed.
+	if [ -f "${modsdir}/.removedfiles.tmp" ]; then
+		cat "${modsdir}/.removedfiles.tmp" >> "${modsdir}/${modcommand}-files.txt"
+	fi
+}
 
 fn_update_mods_oxide_dl(){
   remotebuildurl=$(curl -sL https://api.github.com/repos/OxideMod/Oxide.Rust/releases/latest | jq -r '.assets[]|select(.browser_download_url | contains("linux")) | .browser_download_url')
   remotebuildname=$(curl -sL https://api.github.com/repos/OxideMod/Oxide.Rust/releases/latest | jq -r '.assets[]|select(.browser_download_url | contains("linux")) | .name')
   fn_fetch_file "${remotebuildurl}" "" "" "" "${tmpdir}" "${remotebuildname}" "" "norun" "noforce" "nomd5"
-	fn_dl_extract "${tmpdir}" "${remotebuildname}" "${tmpdir}/${remotebuildname}"
+	fn_dl_extract "${tmpdir}" "${remotebuildname}" "${tmpdir}/extract"
 	echo -e "copying to ${serverfiles}...\c"
 	cp -R "${tmpdir}/${remotebuildname}"* "${serverfiles}"
 	local exitcode=$?
