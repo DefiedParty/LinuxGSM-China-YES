@@ -25,7 +25,9 @@ if [ "${travistest}" != "1" ]; then
 		fn_print_dots "Check IP"
 		# Multiple interfaces.
 		if [ "${getipwc}" -ge "2" ]; then
-			if [ "${commandname}" == "details" ]; then
+			if [ -f /.dockerenv ]; then
+				:
+			elif [ "${commandname}" == "details" ]; then
 				fn_print_warn "Check IP: Multiple IP addresses found."
 			else
 				fn_print_fail "Check IP: Multiple IP addresses found."
