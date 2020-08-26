@@ -7,9 +7,7 @@
 
 functionselfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 
-if [ -f /.dockerenv ]; then
-	ip=0.0.0.0
-fi
+
 
 if [ "${travistest}" != "1" ]; then
 	if [ ! -f "/bin/ip" ]; then
@@ -41,6 +39,8 @@ if [ "${travistest}" != "1" ]; then
 				echo -en "Set ${ipinconfigvar} to one of the following:\n"
 				fn_script_log_fatal "Multiple IP addresses found."
 				fn_script_log_fatal "Specify the IP you want to bind within: ${servercfgfullpath}."
+			elif [ -f /.dockerenv ]; then
+				ip=0.0.0.0
 			# IP is set within LinuxGSM config.
 			else
 				fn_print_information_nl "Specify the IP you want to bind within a LinuxGSM config file.\n"
@@ -55,7 +55,9 @@ if [ "${travistest}" != "1" ]; then
 			echo -en "https://linuxgsm.com/network-interfaces\n"
 			echo -en ""
 			# Do not exit for details and postdetails commands.
-			if [ "${commandname}" != "DETAILS" ]||[ "${commandname}" != "POST-DETAILS" ]; then
+			if [ -f /.dockerenv ]; then
+				ip=0.0.0.0				
+			elif [ "${commandname}" != "DETAILS" ]||[ "${commandname}" != "POST-DETAILS" ]; then
 				fn_script_log_fatal "https://linuxgsm.com/network-interfaces\n"
 				core_exit.sh
 			else
