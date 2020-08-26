@@ -48,7 +48,7 @@ userinput="${1}"
 # from a different repo and/or branch.
 githubuser="GameServerManagers"
 githubrepo="LinuxGSM"
-githubbranch="master"
+githubbranch="feature/docker"
 
 # Core function that is required first.
 core_functions.sh(){
