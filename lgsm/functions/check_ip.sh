@@ -7,8 +7,6 @@
 
 functionselfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 
-
-
 if [ "${travistest}" != "1" ]; then
 	if [ ! -f "/bin/ip" ]; then
 		ipcommand="/sbin/ip"
@@ -89,4 +87,8 @@ if [ "${travistest}" != "1" ]; then
 			ip="${getip}"
 		fi
 	fi
+fi
+
+if [ "${ip}" == "0.0.0.0" ]; then
+	query_ip="$(hostname -i)"
 fi
