@@ -7,6 +7,10 @@
 
 functionselfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 
+if [ -f /.dockerenv ]; then
+	ip=0.0.0.0
+fi
+
 if [ "${travistest}" != "1" ]; then
 	if [ ! -f "/bin/ip" ]; then
 		ipcommand="/sbin/ip"

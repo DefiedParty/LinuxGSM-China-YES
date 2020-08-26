@@ -23,9 +23,11 @@ fn_fetch_default_config(){
 	echo -e "default configs from https://github.com/GameServerManagers/Game-Server-Configs"
 	fn_sleep_time
 	mkdir -p "${lgsmdir}/config-default/config-game"
+
+	# When running inside Docker we want to use a local copy of these files.
 	githuburl="https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
 	for config in "${array_configs[@]}"; do
-		fn_fetch_file "${githuburl}/${gamedirname}/${config}" "${remote_fileurl_backup}" "GitHub" "Bitbucket" "${lgsmdir}/config-default/config-game" "${config}" "nochmodx" "norun" "forcedl" "nomd5"
+		fn_fetch_file "${githuburl}/${gamedirname}/${config}" "${remote_fileurl_backup}" "GitHub" "Bitbucket" "${lgsmdir}/config-default/config-game/${gamedirname}" "${config}" "nochmodx" "norun" "forcedl" "nomd5"
 	done
 }
 
@@ -37,15 +39,15 @@ fn_default_config_remote(){
 		fn_script_log_info "copying ${servercfg} config file."
 		if [ "${config}" == "${servercfgdefault}" ]; then
 			mkdir -p "${servercfgdir}"
-			cp -nv "${lgsmdir}/config-default/config-game/${config}" "${servercfgfullpath}"
+			cp -nv "${lgsmdir}/config-default/config-game/${gamedirname}/${config}" "${servercfgfullpath}"
 		elif [ "${shortname}" == "arma3" ]&&[ "${config}" == "${networkcfgdefault}" ]; then
 			mkdir -p "${servercfgdir}"
-			cp -nv "${lgsmdir}/config-default/config-game/${config}" "${networkcfgfullpath}"
+			cp -nv "${lgsmdir}/config-default/config-game/${gamedirname}/${config}" "${networkcfgfullpath}"
 		elif [ "${shortname}" == "dst" ]&&[ "${config}" == "${clustercfgdefault}" ]; then
-			cp -nv "${lgsmdir}/config-default/config-game/${clustercfgdefault}" "${clustercfgfullpath}"
+			cp -nv "${lgsmdir}/config-default/config-game/${gamedirname}/${clustercfgdefault}" "${clustercfgfullpath}"
 		else
 			mkdir -p "${servercfgdir}"
-			cp -nv "${lgsmdir}/config-default/config-game/${config}" "${servercfgdir}/${config}"
+			cp -nv "${lgsmdir}/config-default/config-game/${gamedirname}/${config}" "${servercfgdir}/${config}"
 		fi
 	done
 	fn_sleep_time
