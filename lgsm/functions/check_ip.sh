@@ -90,5 +90,5 @@ if [ "${travistest}" != "1" ]; then
 fi
 
 if [ "${ip}" == "0.0.0.0" ]; then
-	query_ip="$(hostname -i)"
+	queryip="$(hostname -i)"
 fi
