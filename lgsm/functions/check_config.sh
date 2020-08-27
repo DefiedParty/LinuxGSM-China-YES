@@ -39,8 +39,8 @@ if [ -f /.dockerenv ]; then
 		ln -s "${configdirserver}/_default.cfg" "${rootdir}/_default.cfg"
 	fi	
 	# Will symlink config game server config
-	if [ ! -f "${rootdir}/${servercfg}.cfg" ]; then
-		ln -s "${servercfgfullpath}" "${rootdir}/${servercfg}.cfg"
+	if [ ! -f "${rootdir}/${servercfg}" ]; then
+		ln -s "${servercfgfullpath}" "${rootdir}/${servercfg}"
 	fi
 	# Will symlink config game server config with generic name server.cfg
 	if [ ! -f "${rootdir}/server.cfg" ]; then
