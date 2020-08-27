@@ -29,3 +29,21 @@ if [ "${shortname}" == "rust" ]; then
 		fn_script_log_warn "Default RCON Password detected"
 	fi
 fi
+
+if [ -f /.dockerenv ]; then
+	# Symlink config files to make it easier to find them using docker exec
+	if [ ! -f "${rootdir}/common.cfg" ]; then
+		ln -s "${configdirserver}/common.cfg" "${rootdir}/common.cfg"
+	fi
+	if [ ! -f "${rootdir}/_default.cfg" ]; then
+		ln -s "${configdirserver}/_default.cfg" "${rootdir}/_default.cfg"
+	fi	
+	# Will symlink config game server config
+	if [ ! -f "${rootdir}/${servercfg}.cfg" ]; then
+		ln -s "${servercfgfullpath}" "${rootdir}/${servercfg}.cfg"
+	fi
+	# Will symlink config game server config with generic name server.cfg
+	if [ ! -f "${rootdir}/server.cfg" ]; then
+		ln -s "${servercfgfullpath}" "${rootdir}/server.cfg"
+	fi
+fi
