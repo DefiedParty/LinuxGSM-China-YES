@@ -16,13 +16,13 @@ fn_script_log_info "Retrieving latest mods URLs"
 metamodmversion="1.10"
 metamodscrapeurl="https://mms.alliedmods.net/mmsdrop/${metamodmversion}/mmsource-latest-linux"
 metamodlatestfile=$(wget "${metamodscrapeurl}" -q -O -)
-metamoddownloadurl="https://www.metamodsource.net/latest.php?os=linux&version=${metamodmversion}"
+metamoddownloadurl="https://gitee.com/DefiedParty/linux-gsm-cn-mod/raw/master/metamod/mmsource-1.10.7-git971-linux.tar.gz"
 metamodurl="${metamoddownloadurl}"
 # Sourcemod
 sourcemodmversion="1.10"
 sourcemodscrapeurl="https://sm.alliedmods.net/smdrop/${sourcemodmversion}/sourcemod-latest-linux"
 sourcemodlatestfile=$(wget "${sourcemodscrapeurl}" -q -O -)
-sourcemoddownloadurl="https://www.sourcemod.net/latest.php?os=linux&version=${sourcemodmversion}"
+sourcemoddownloadurl="https://gitee.com/DefiedParty/linux-gsm-cn-mod/raw/master/sourcemod/sourcemod-1.10.0-git6492-linux.tar.gz"
 sourcemodurl="${sourcemoddownloadurl}"
 # Steamworks
 steamworksscrapeurl="https://users.alliedmods.net/~kyles/builds/SteamWorks"
