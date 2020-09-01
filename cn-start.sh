@@ -5,9 +5,30 @@
 # 项目地址：https://dpii.club/lgsm-cn-yes
 # gitee主页：https://gitee.com/DefiedParty/LinuxGSM
 
-echo "LinuxGSM-China-YES\n地皮-DefiedParty"
-git clone https://gitee.com/DefiedParty/LinuxGSM
-cd LinuxGSM
-chmod +x linuxgsm.sh
-chmod -R 764 lgsm/functions
-echo "初始化完成，请继续按照教程执行！（补充，请先cd LinuxGSM 切换工作目录为：/home/用户名/LinuxGSM，也就是说下文所有有关目录的命令都要在/home/用户名/ 后面加上LinuxGSM)"
+isnowdir=u
+if $1=--isnowdir
+then 
+    $isnowdir=y
+    echo "LinuxGSM-China-YES    地皮-DefiedParty"
+fi
+if $isnowdir=u
+then
+    echo "是否要在当前目录下初始化？如果当前目录下有其他文件可能引发未知问题！(y/n)"
+    read isnowdir
+fi
+if $isnowdir=n
+then
+    git clone https://gitee.com/DefiedParty/LinuxGSM
+    cd LinuxGSM
+    chmod +x linuxgsm.sh
+    chmod -R 764 lgsm/functions
+    echo "初始化完成"
+elif $isnowdir=y
+then
+    git clone --no-checkout https://gitee.com/DefiedParty/LinuxGSM.git dltmp
+    mv tmp/.git .
+    rmdir dltmp
+    echo "初始化完成"
+elif $isnowdir=u
+    echo "未选择是否在当前目录下初始化"
+fi
