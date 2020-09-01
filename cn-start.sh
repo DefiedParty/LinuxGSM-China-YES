@@ -6,7 +6,7 @@
 # gitee主页：https://gitee.com/DefiedParty/LinuxGSM
 
 isnowdir=u
-if $1=--isnowdir
+if $1 = --isnowdir
 then 
     $isnowdir=y
     echo "LinuxGSM-China-YES    地皮-DefiedParty"
@@ -30,5 +30,6 @@ then
     rmdir dltmp
     echo "初始化完成"
 elif $isnowdir=u
+then
     echo "未选择是否在当前目录下初始化"
 fi
