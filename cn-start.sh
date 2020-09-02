@@ -5,31 +5,33 @@
 # 项目地址：https://dpii.club/lgsm-cn-yes
 # gitee主页：https://gitee.com/DefiedParty/LinuxGSM
 
-isnowdir=u
-if $1 = --isnowdir
-then 
-    $isnowdir=y
+isnowdir="u"
+if [ "$1" == "--isnowdir" ]
+then
+    isnowdir="y"
 fi
 echo "LinuxGSM-China-YES    地皮-DefiedParty"
-if $isnowdir=u
+if [ "$isnowdir" == "u" ]
 then
-    echo "是否要在当前目录下初始化？如果当前目录下有其他文件可能引发未知问题！(y/n)"
-    read isnowdir
+    read -p "是否要在当前目录下初始化？如果当前目录下有其他文件可能引发未知问题！(y/n)" isnowdir
 fi
-if $isnowdir=n
+if [ "$isnowdir" == "n" ]
 then
     git clone https://gitee.com/DefiedParty/LinuxGSM
     cd LinuxGSM
     chmod +x linuxgsm.sh
     chmod -R 764 lgsm/functions
     echo "初始化完成"
-elif $isnowdir=y
+elif [ "$isnowdir" == "y" ]
 then
     git clone --no-checkout https://gitee.com/DefiedParty/LinuxGSM.git dltmp
-    mv tmp/.git .
-    rmdir dltmp
+    mv dltmp/.git .
+    rm -rf dltmp
+    git reset --hard HEAD
+    chmod +x linuxgsm.sh
+    chmod -R 764 lgsm/functions
     echo "初始化完成"
-elif $isnowdir=u
+elif [ "$isnowdir" == "u" ]
 then
     echo "未选择是否在当前目录下初始化"
 fi
