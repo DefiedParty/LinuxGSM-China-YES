@@ -17,14 +17,14 @@ then
 fi
 if [ "$isnowdir" == "n" ]
 then
-    git clone https://gitee.com/DefiedParty/LinuxGSM/
+    git clone https://gitee.com/DefiedParty/LinuxGSM
     git checkout devcn
     chmod +x linuxgsm.sh
     chmod -R 764 lgsm/functions
     echo "初始化完成"
 elif [ "$isnowdir" == "y" ]
 then
-    git clone --no-checkout https://gitee.com/DefiedParty/LinuxGSM/.git dltmp
+    git clone --no-checkout https://gitee.com/DefiedParty/LinuxGSM.git dltmp
     mv dltmp/.git .
     rm -rf dltmp
     git reset --hard HEAD
