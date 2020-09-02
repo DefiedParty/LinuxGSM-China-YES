@@ -9,8 +9,8 @@ isnowdir=u
 if $1 = --isnowdir
 then 
     $isnowdir=y
-    echo "LinuxGSM-China-YES    地皮-DefiedParty"
 fi
+echo "LinuxGSM-China-YES    地皮-DefiedParty"
 if $isnowdir=u
 then
     echo "是否要在当前目录下初始化？如果当前目录下有其他文件可能引发未知问题！(y/n)"
